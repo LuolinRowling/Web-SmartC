@@ -23,10 +23,9 @@ export class UserService {
 	    	"password":Md5.hashStr(password).toString()
 	    }
 	    return this.http      
-	      //.post(url, JSON.stringify(data), {headers: this.headers})
-	      .get(url)
+	      .post(url, JSON.stringify(data), {headers: this.headers})
 	      .toPromise()
-	      .then(response => response.json().data.data)
+	      .then(response => response.json().data)
 	      .catch(this.handleError);
 	}
 	private handleError(error: any): Promise<any> {

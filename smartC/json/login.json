@@ -1,0 +1,13 @@
+{
+    "msg": "调用成功",
+    "code": "0000",
+    "data": {
+        "msg" : 0,
+        "user" : {
+            "id" : 1,
+            "username" : "xixi",
+            "password" : "haha",
+            "rname" : "超级管理员"
+        }
+    }
+}

@@ -5,19 +5,19 @@ import { StorageService } from '../../service/storage.service';
 
 
 @Component({
-  selector: 'sc-navigation',
+  selector: 'nav-component',
   templateUrl: './navigation.html',
   providers: [StorageService]
 })
-export class navComponent implements OnInit {
+export class NavComponent{
   user: User;
-  constructor(
-    private storageService: StorageService) {}
-  // Push a search term into the observable stream.
-  
-  ngOnInit(): void {
 
+  constructor(
+    private storageService: StorageService) {
+    this.user = this.storageService.read<User>('user');
   }
+    
+  // Push a search term into the observable stream.
   // gotoDetail(hero: Hero): void {
   //   let link = ['/detail', hero.id];
   //   this.router.navigate(link);

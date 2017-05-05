@@ -5,21 +5,15 @@ import { StorageService } from '../../service/storage.service';
 
 
 @Component({
-  selector: 'sc-sidebar',
+  selector: 'sidebar-component',
   templateUrl: './sidebar.html',
   providers: [StorageService]
 })
-export class sidebarComponent implements OnInit {
+export class SidebarComponent {
   user: User;
   constructor(
-    private storageService: StorageService) {}
+    private storageService: StorageService) {
+  	this.user = this.storageService.read<User>('user');
   // Push a search term into the observable stream.
-  
-  ngOnInit(): void {
-
   }
-  // gotoDetail(hero: Hero): void {
-  //   let link = ['/detail', hero.id];
-  //   this.router.navigate(link);
-  // }
 }
