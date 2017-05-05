@@ -22,7 +22,7 @@ export class DeviceService {
   	getDevices(): Promise<Device[]> {
     	return this.http.get(this.deviceUrl)
              .toPromise()
-             .then(response => response.json().data.data.deviceStatusList as Device[])
+             .then(response => response.json().data.deviceStatusList as Device[])
              .catch(this.handleError);
   	}
   	private handleError(error: any): Promise<any> {
@@ -48,13 +48,15 @@ export class DeviceService {
 
     /**
      * [operateCamera 操作摄像机状态]
-     * @param {[type]} id      [摄像机id]
-     * @param {[type]} operate [操作类型 open close]
+     * @param {[type]} deviceId [设备id]
+     * @param {[type]} cameraId [摄像机id]
+     * @param {[type]} operate  [操作类型 open close]
      */
-    operateCamera(id,operate): void{
+    operateCamera(deviceId,cameraId,operate): void{
       let url = '/ajax_edit_camera_status';
       let data = {
-        "cid":id,
+        "did":deviceId,
+        "cid":cameraId,
         "operation":operate
       }
       this.commonOperatFunc(url,data);

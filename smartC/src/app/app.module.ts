@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { CONST_ROUTING } from './app.router'
+import {DataTableModule} from "angular2-datatable";
 
 import { AppComponent } from './app.component';
 import { LoginPage } from './pages/login/login';
@@ -14,6 +15,7 @@ import { videoManagePage } from './pages/video/videoManage/videoManage';
 
 import { StorageService } from './service/storage.service';
 import { UserService } from './service/user.service';
+import { DeviceService } from './service/device.service';
 
 @NgModule({
   declarations: [
@@ -29,11 +31,13 @@ import { UserService } from './service/user.service';
     FormsModule,
     HttpModule,
     ReactiveFormsModule,
-    CONST_ROUTING
+    CONST_ROUTING,
+    DataTableModule
   ],
   providers: [
     StorageService,
-    UserService
+    UserService,
+    DeviceService
   ],
   bootstrap: [AppComponent]
 })

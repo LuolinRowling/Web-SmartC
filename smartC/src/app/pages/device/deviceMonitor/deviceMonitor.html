@@ -28,102 +28,84 @@
                             <a class="btn btn-warning btn-flat pull-right" onclick="editAllDevice('open')">一键开启</a>
                             <a class="btn btn-primary btn-flat pull-right" style="margin-right: 10px" onclick="editAllDevice('close')">一键关闭</a>
                             <button type="button" class="btn btn-success btn-xs col">开启</button>当前设备离线&nbsp;
-                            <button type="button" class="btn btn-danger btn-xs col">关闭</button>当前设备在线&nbsp;
-                            <button type="button" class="btn btn-warning btn-xs col">异常</button>当前设备异常&nbsp;
+                            <button type="button" class="btn btn-success btn-xs col">关闭</button>当前设备在线&nbsp;
+                            <button type="button" class="btn btn-danger btn-xs col">异常</button>当前设备异常&nbsp;
                             <br/><br/>不可点击状态
                             <button type="button" class="btn btn-success btn-xs col" disabled>开启</button>&nbsp;
-                            <button type="button" class="btn btn-danger btn-xs col" disabled>关闭</button>&nbsp;
-                            <button type="button" class="btn btn-warning btn-xs col" disabled>异常</button>&nbsp;
-                            当树莓派关闭或异常，所有操作无法进行；当单片机异常，无法操作电脑和投影仪
+                            <button type="button" class="btn btn-success btn-xs col" disabled>关闭</button>&nbsp;
+                            <button type="button" class="btn btn-danger btn-xs col" disabled>异常</button>&nbsp;
+                            当树莓派关闭或异常，所有操作无法进行
 
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <table id="example2" class="table table-bordered table-hover">
+                            <table id="example2" class="table table-bordered table-hover" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="5">
                                 <thead>
                                 <tr>
-                                    <th>编号</th>
-                                    <th>教室</th>
+                                    <th><mfDefaultSorter by="id">编号</mfDefaultSorter></th>
+                                    <th><mfDefaultSorter by="buildingNum">教室</mfDefaultSorter></th>
                                     <th>电脑</th>
                                     <th>摄像头</th>
                                     <th>投影仪</th>
-                                    <th>树莓派</th>
-                                    <th>单片机</th>
+                                    <th>树莓派</th>                                    
                                     <th>操作</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- <c:forEach items="${deviceStatuslist}" var="status">
-                                        <tr <c:if test='${status.raspberryStatus==0||status.raspberryStatus==2}'>class="device-disabled" </c:if> id="trDevice${status.raspberryCode}">
-                                            <td>
-                                                <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox" class="device-checkbox"> ${status.id}
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>${status.buildingNum} ${status.classroomNum}</td>
-                                            <td <c:if test='${status.singlechipStatus==0||status.singlechipStatus==2}'>class="singlechip-disabled" </c:if>>
-                                                <c:if test="${status.computerStatus==0}">
-                                                    <button type="button" class="btn btn-success btn-xs col" onclick="operateDevice(${status.id},'computer','open')">开启</button>
-                                                </c:if>
-                                                <c:if test="${status.computerStatus==1}">
-                                                    <button type="button" class="btn btn-danger btn-xs col" onclick="operateDevice(${status.id},'computer','close')">关闭</button>
-                                                </c:if>
-                                                <c:if test="${status.computerStatus==2}">
-                                                    <button type="button" class="btn btn-warning btn-xs col" onclick="operateDevice(${status.id},'computer','open')">异常</button>
-                                                </c:if>
-                                            </td>
-                                            <td>
-                                                <c:if test="${status.cameraStatus==0}">
-                                                    <button type="button" class="btn btn-success btn-xs col" onclick="operateDevice(${status.id},'camera','open')">开启</button>
-                                                </c:if>
-                                                <c:if test="${status.cameraStatus==1}">
-                                                    <button type="button" class="btn btn-danger btn-xs col" onclick="operateDevice(${status.id},'camera','close')">关闭</button>
-                                                </c:if>
-                                                <c:if test="${status.cameraStatus==2}">
-                                                    <button type="button" class="btn btn-warning btn-xs col" onclick="operateDevice(${status.id},'camera','open')">异常</button>
-                                                </c:if>
-                                            </td>
-                                            <td <c:if test='${status.singlechipStatus==0||status.singlechipStatus==2}'>class="singlechip-disabled" </c:if>>
-                                                <c:if test="${status.projectorStatus==0}">
-                                                    <button type="button" class="btn btn-success btn-xs col" onclick="operateDevice(${status.id},'projector','open')">开启</button>
-                                                </c:if>
-                                                <c:if test="${status.projectorStatus==1}">
-                                                    <button type="button" class="btn btn-danger btn-xs col" onclick="operateDevice(${status.id},'projector','close')">关闭</button>
-                                                </c:if>
-                                                <c:if test="${status.projectorStatus==2}">
-                                                    <button type="button" class="btn btn-warning btn-xs col" onclick="operateDevice(${status.id},'projector','open')">异常</button>
-                                                </c:if>
-                                            </td>
-                                            <td>
-                                                <c:if test="${status.raspberryStatus==0}">离线</c:if>
-                                                <c:if test="${status.raspberryStatus==1}">在线</c:if>
-                                                <c:if test="${status.raspberryStatus==2}">异常</c:if>
-                                            </td>
-                                            <td>
-                                                <c:if test="${status.singlechipStatus==0}">离线</c:if>
-                                                <c:if test="${status.singlechipStatus==1}">在线</c:if>
-                                                <c:if test="${status.singlechipStatus==2}">异常</c:if>
-                                            </td>
-                                            <td>
-                                                <button type="button" class="btn btn-success btn-xs col" onclick="operateDevice(${status.id},'','open')">开启全部</button>&nbsp;
-                                                <button type="button" class="btn btn-danger btn-xs col" onclick="operateDevice(${status.id},'','close')">关闭全部</button>
-                                            </td>
-                                        </tr>
-                                    </c:forEach> -->
+                                    <tr *ngFor="let device of mf.data" [ngClass]="{'device-disabled':device.raspberryStatus!=1}">
+                                        <td>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input [disabled]="device.raspberryStatus!=1" type="checkbox" class="device-checkbox"> {{device.id}}
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>{{device.buildingNum}} {{device.classroomNum}}</td>
+                                        <td>
+                                            <button [disabled]="device.raspberryStatus!=1" *ngIf="device.computerStatus==0" type="button" class="btn btn-success btn-xs col" (click)="operateDevice(device.id,'computer','open')">开启</button>
+                                            <button [disabled]="device.raspberryStatus!=1" *ngIf="device.computerStatus==1" type="button" class="btn btn-success btn-xs col" (click)="operateDevice(device.id,'computer','close')">关闭</button>
+                                            <button [disabled]="device.raspberryStatus!=1" *ngIf="device.computerStatus==2" type="button" class="btn btn-danger btn-xs col" (click)="operateDevice(device.id,'computer','open')">异常</button>
+                                        </td>
+                                        <td>
+                                            <span *ngFor="let camera of device.cameraList">
+                                                {{camera.cameraAngle}}:
+                                                <button [disabled]="device.raspberryStatus!=1" *ngIf="camera.cameraStatus==0" type="button" class="btn btn-success btn-xs col" (click)="operateCamera(device.id,camera.cameraId,'camera','open')">开启</button>
+                                                <button [disabled]="device.raspberryStatus!=1" *ngIf="camera.cameraStatus==1" type="button" class="btn btn-success btn-xs col" (click)="operateCamera(device.id,camera.cameraId,'camera','close')">关闭</button>
+                                                <button [disabled]="device.raspberryStatus!=1" *ngIf="camera.cameraStatus==2" type="button" class="btn btn-danger btn-xs col" (click)="operateCamera(device.id,camera.cameraId,'camera','open')">异常</button>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <button [disabled]="device.raspberryStatus!=1" *ngIf="device.projectorStatus==0" type="button" class="btn btn-success btn-xs col" (click)="operateDevice(device.id,'projector','open')">开启</button>
+                                            <button [disabled]="device.raspberryStatus!=1" *ngIf="device.projectorStatus==1" type="button" class="btn btn-success btn-xs col" (click)="operateDevice(device.id,'projector','close')">关闭</button>
+                                           <button [disabled]="device.raspberryStatus!=1" *ngIf="device.projectorStatus==2" type="button" class="btn btn-danger btn-xs col" (click)="operateDevice(device.id,'projector','open')">异常</button>
+                                        </td>
+                                        <td>
+                                            <p *ngIf="device.raspberryStatus==0" >离线</p>
+                                            <p *ngIf="device.raspberryStatus==1" >在线</p>
+                                            <p *ngIf="device.raspberryStatus==2" >异常</p>
+                                        </td>
+                                        <td>
+                                            <button [disabled]="device.raspberryStatus!=1" type="button" class="btn btn-success btn-xs col" (click)="operateDevice(device.id,'','open')">开启全部</button>&nbsp;
+                                            <button [disabled]="device.raspberryStatus!=1" type="button" class="btn btn-success btn-xs col" (click)="operateDevice(device.id,'','close')">关闭全部</button>
+                                        </td>
+                                    </tr>
                                 </tbody>
                                 <tfoot>
-                                <tr>
+                                <!-- <tr>
                                     <th>编号</th>
                                     <th>教室</th>
                                     <th>电脑</th>
                                     <th>摄像头</th>
                                     <th>投影仪</th>
                                     <th>树莓派</th>
-                                    <th>单片机</th>
                                     <th>操作</th>
-                                </tr>
+                                    
+                                </tr> -->
+                                    <tr>
+                                        <td colspan="7">
+                                            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                                        </td>
+                                    </tr>
                                 </tfoot>
                             </table>
                         </div>
@@ -156,25 +138,32 @@
 <!-- ./wrapper -->
 
 <script>
-    $(function () {
-        $("#example1").DataTable();
-        $('#example2').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-            "fnRowCallback": function( nRow, aData, iDisplayIndex ) {
-                /* Append the grade to the default row class name */
-                changeButtonDisable();
-                //return nRow;
-            }
-        });
-    });
-
-
+    // $(function () {
+    //     $("#example1").DataTable();
+    //     $('#example2').DataTable({
+    //         "paging": true,
+    //         "lengthChange": false,
+    //         "searching": false,
+    //         "ordering": true,
+    //         "info": true,
+    //         "autoWidth": false,
+    //         "fnRowCallback": function( nRow, aData, iDisplayIndex ) {
+    //             /* Append the grade to the default row class name */
+    //             changeButtonDisable();
+    //             //return nRow;
+    //         }
+    //     });
+    // });
+    // function changeButtonDisable(){
+    //     //树莓派异常或关闭  所有操作都不能进行
+    //     $(".device-disabled").children("td").children("button").attr("disabled","true");
+    //     $(".device-disabled .device-checkbox").attr("disabled","true");
+    //     //单片机异常或关闭  电脑和投影仪 都不能进行
+    //     $(".singlechip-disabled").children("button").attr("disabled","true");
+    // }
 </script>
+
+
 <script src="../../assets/xset/deviceMonitor.js"></script>
 <script src="../../assets/xset/judgePage.js"></script>
     <!-- 导航栏 -->
