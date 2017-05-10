@@ -63,6 +63,18 @@ export class DeviceService {
     }
 
     /**
+     * [operateAllDevice 一键操作所有设备]
+     * @param {[type]} operate [操作类型 open close]
+     */
+    operateAllDevice(operate): void{
+      let url = '/ajax_edit_all_device_status';
+      let data = {
+        "operation":operate
+      }
+      this.commonOperatFunc(url,data);
+    }
+
+    /**
      * [operateStream 操作视频推拉流]
      * @param {[type]} id      [教室设备列表id]
      * @param {[type]} operate [操作类型 start_push|broadcast stop_push|pull|broadcast]

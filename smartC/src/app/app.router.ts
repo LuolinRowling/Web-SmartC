@@ -7,7 +7,7 @@ import { videoManagePage } from './pages/video/videoManage/videoManage';
 
 const MAINMENU_ROUTES: Routes = [
     //full : makes sure the path is absolute path
-    { path: '', redirectTo: '/login', pathMatch: 'full' },
+    { path: '', redirectTo: '/videoManage', pathMatch: 'full' },
     { path: 'login', component: LoginPage },
     { path: 'deviceMonitor', component: deviceMonitorPage },
     { path: 'videoManage', component: videoManagePage },

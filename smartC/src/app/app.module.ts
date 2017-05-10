@@ -16,6 +16,7 @@ import { videoManagePage } from './pages/video/videoManage/videoManage';
 import { StorageService } from './service/storage.service';
 import { UserService } from './service/user.service';
 import { DeviceService } from './service/device.service';
+import { VideoService } from './service/video.service';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { DeviceService } from './service/device.service';
   providers: [
     StorageService,
     UserService,
-    DeviceService
+    DeviceService,
+    VideoService
   ],
   bootstrap: [AppComponent]
 })

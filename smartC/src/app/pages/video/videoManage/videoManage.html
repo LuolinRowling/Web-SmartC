@@ -24,11 +24,11 @@
                     <div class="box">
                         <div class="box-header">
                             <h3 class="box-title">远程设备列表 </h3>
-                            <a class="btn btn-warning btn-flat pull-right" data-toggle="modal" data-target="#pullModal" onclick="getBuildClass(0,this,'multiple')">多教室拉流</a>
+                            <a class="btn btn-warning btn-flat pull-right" data-toggle="modal" data-target="#pullModal" (click)="getBuildClass(0,$event,'multiple')">多教室拉流</a>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <table id="example2" class="table table-bordered table-hover">
+                            <table id="example2" class="table table-bordered table-hover" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="5">
                                 <thead>
                                 <tr>
                                     <th>编号</th>
@@ -41,58 +41,59 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- <c:forEach items="${raspberryStreamStatuslist}" var="status">
-                                        <tr <c:if test='${status.raspberryStreamStatus==0||status.raspberryStreamStatus==2}'>class="device-disabled" </c:if> id="tr${status.raspberryCode}">
-                                            <td>${status.id}</td>
-                                            <td class="table-td">${status.buildingNum} ${status.classroomNum}</td>
-                                            <td class="table-td stream-status">
-                                                <c:if test="${status.raspberryStreamStatus==0}">离线</c:if>
-                                                <c:if test="${status.raspberryStreamStatus==1}">在线（空闲）</c:if>
-                                                <c:if test="${status.raspberryStreamStatus==2}">异常</c:if>
-                                                <c:if test="${status.raspberryStreamStatus==3}">正在推流</c:if>
-                                                <c:if test="${status.raspberryStreamStatus==4}">正在拉流</c:if>
-                                                <c:if test="${status.raspberryStreamStatus==5}">正在广播</c:if>
-                                            </td>
-                                            <td class="table-td <c:if test='${status.raspberryStreamStatus==4||status.raspberryStreamStatus==5}'>operate-disabled</c:if>">
-                                                <c:if test="${status.raspberryStreamStatus!=3}">
-                                                    <button type="button" class="btn btn-success btn-xs col push-btn" onclick="operateStream(${status.id},'start_push',this)"> 开始推流 </button>
-                                                </c:if>
-                                                <c:if test="${status.raspberryStreamStatus==3}">
-                                                    <button type="button" class="btn btn-success btn-xs col push-btn" onclick="operateStream(${status.id},'stop_push',this)"> 停止推流 </button>
-                                                </c:if>
-                                            </td>
-                                            <td class="table-td <c:if test='${status.raspberryStreamStatus==3||status.raspberryStreamStatus==5}'>operate-disabled</c:if>">
-                                                <c:if test="${status.raspberryStreamStatus!=4}">
-                                                    <button type="button" class="btn btn-success btn-xs col pull-btn" data-toggle="modal" data-target="#pullModal" onclick="getBuildClass(${status.id},this,'single')"> 开始拉流 </button>
-                                                </c:if>
-                                                <c:if test="${status.raspberryStreamStatus==4}">
-                                                    <button type="button" class="btn btn-success btn-xs col pull-btn" onclick="operateStream(${status.id},'stop_pull',this)"> 停止拉流 </button>
-                                                </c:if>
-                                            </td>
-                                            <td class="table-td <c:if test='${status.raspberryStreamStatus==3||status.raspberryStreamStatus==4}'>operate-disabled</c:if>">
-                                                <c:if test="${status.raspberryStreamStatus!=5}">
-                                                    <button type="button" class="btn btn-warning btn-xs col broadcast-btn" onclick="operateStream(${status.id},'start_broadcast',this)"> 发布广播 </button>
-                                                </c:if>
-                                                <c:if test="${status.raspberryStreamStatus==5}">
-                                                    <button type="button" class="btn btn-warning btn-xs col broadcast-btn" onclick="operateStream(${status.id},'stop_broadcast',this)"> 停止广播 </button>
-                                                </c:if>
-                                            </td>
-                                            <td class="table-td">
-                                                <a class="btn btn-primary btn-xs col" href="videoLive.jsp?id=${status.id}" target="_blank">播放视频</a>
-                                            </td>
-                                        </tr>
-                                    </c:forEach> -->
+                                    <tr *ngFor="let device of mf.data">
+                                        <td>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input [disabled]="device.raspberryStatus!=1" type="checkbox" class="device-checkbox"> {{device.id}}
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>{{device.buildingNum}} {{device.classroomNum}}</td>
+                                        <td>
+                                            <p *ngIf="device.raspberryStreamStatus==0" >离线</p>
+                                            <p *ngIf="device.raspberryStreamStatus==1" >在线(空闲)</p>
+                                            <p *ngIf="device.raspberryStreamStatus==2" >异常</p>
+                                            <p *ngIf="device.raspberryStreamStatus==3" >正在推流</p>
+                                            <p *ngIf="device.raspberryStreamStatus==4" >正在拉流</p>
+                                            <p *ngIf="device.raspberryStreamStatus==5" >正在广播</p>
+                                        </td>
+                                        <td class="table-td">
+                                            <div *ngIf="device.raspberryStreamStatus!=3">
+                                                <button [disabled]="device.raspberryStreamStatus==4||device.raspberryStreamStatus==5" type="button" class="btn btn-success btn-xs col push-btn" (click)="operateStream(device.id,'start_push',$event)"> 开始推流 </button>  
+                                            </div>
+                                            <div *ngIf="device.raspberryStreamStatus==3">
+                                                <button type="button" class="btn btn-success btn-xs col push-btn" (click)="operateStream(device.id,'stop_push',$event)"> 停止推流 </button>  
+                                            </div>
+                                             
+                                        </td>
+                                        <td class="table-td">
+                                            <div *ngIf="device.raspberryStreamStatus!=4">
+                                                <button [disabled]="device.raspberryStreamStatus==3||device.raspberryStreamStatus==5" type="button" class="btn btn-success btn-xs col pull-btn" data-toggle="modal" data-target="#pullModal" (click)="getBuildClass(device.id,$event,'single')"> 开始拉流 </button>  
+                                            </div>
+                                            <div *ngIf="device.raspberryStreamStatus==4">
+                                                <button type="button" class="btn btn-success btn-xs col pull-btn" (click)="operateStream(device.id,'stop_pull',$event)"> 停止拉流 </button>  
+                                            </div>
+                                        </td>
+                                        <td class="table-td">
+                                            <div *ngIf="device.raspberryStreamStatus!=5">
+                                                <button [disabled]="device.raspberryStreamStatus==3||device.raspberryStreamStatus==4" type="button" class="btn btn-warning btn-xs col broadcast-btn" (click)="operateStream(device.id,'start_broadcast',$event)"> 发布广播 </button>
+                                            </div>
+                                            <div *ngIf="device.raspberryStreamStatus==5">
+                                                <button type="button" class="btn btn-warning btn-xs col broadcast-btn" (click)="operateStream(device.id,'stop_broadcast',$event)"> 停止广播 </button>
+                                            </div>
+                                        </td>
+                                        <td class="table-td">
+                                            <a class="btn btn-primary btn-xs col" href="videoLive.jsp?id=device.id" target="_blank">播放视频</a>
+                                        </td>                                    
+                                    </tr>
                                 </tbody>
                                 <tfoot>
-                                <tr>
-                                    <th>编号</th>
-                                    <th>教室</th>
-                                    <th>状态</th>
-                                    <th>推流</th>
-                                    <th>拉流</th>
-                                    <th>广播</th>
-                                    <th>监控</th>
-                                </tr>
+                                    <tr>
+                                        <td colspan="7">
+                                            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                                        </td>
+                                    </tr>
                                 </tfoot>
                             </table>
                         </div>
@@ -140,22 +141,26 @@
                             <div class="form-group">
                                 <label for="chooseBuilding" class="col-sm-2 control-label">教学楼</label>
                                 <div class="col-sm-4">
-                                    <select class="form-control" id="chooseBuilding">
-
+                                    <select class="form-control" name="buildModel" [(ngModel)]="buildModel" (ngModelChange)="changeClassroomByBuilding($event)">
+                                        <option *ngFor="let building of buildings" [value]="building.buildingNum">
+                                            {{building.buildingNum}}
+                                        </option>
                                     </select>
                                 </div>
 
                                 <label for="chooseClassroom" class="col-sm-2 control-label">教室号</label>
 
                                 <div class="col-sm-4">
-                                    <select class="form-control" id="chooseClassroom">
-
+                                    <select class="form-control" id="chooseClassroom" name="classModel" [(ngModel)]="classModel">
+                                        <option *ngFor="let classroom of classrooms" [value]="classroom.classroomNum">
+                                            {{classroom.classroomNum}}
+                                        </option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <!-- select -->
-                        <div class="form-group" id="buildClassSelect">
+                        <div class="form-group" [ngClass]="{'ztree-view': judgeFrom}" id="buildClassSelect">
                             <label class="col-sm-2 control-label">多教室</label>
                             <div class="col-sm-10">
                                 <div class="zTreeDemoBackground left">
@@ -180,27 +185,6 @@
 <script type="text/javascript" src="./zTree/js/jquery.ztree.excheck.js"></script>
 
 <!-- page script -->
-<script>
-    $(function () {
-        $("#example1").DataTable();
-        $('#example2').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false
-        });
-    });
-    $(document).ready(function () {
-        //树莓派异常或关闭  所有操作都不能进行
-        $(".device-disabled").children("td").children("button").attr("disabled","true");
-        $(".device-disabled").children("td").children("a").attr("disabled","true");
-        //$(".device-disabled .device-checkbox").attr("disabled","true");
-        //当一个按钮点击时  其他两个不能点击
-        $(".operate-disabled").children("button").attr("disabled","true");
-    });
-</script>
 <script src="../../assets/xset/videoManage.js"></script>
 <script src="../../assets/xset/judgePage.js"></script>
     <!-- 导航栏 -->

@@ -42,12 +42,12 @@
                     <li class="edit-device">
                         <a href="#"><i class="fa fa-circle-o"></i> 编辑设备</a>
                         <ul class="treeview-menu">
-                            <li class="device-info" [routerLinkActive]="['active']"><a [routerLink]="['/deviceInfo']"><i class="fa fa-circle-o"></i> 设备信息</a></li>
+                            <li class="device-info"><a [routerLink]="['deviceInfo']"><i class="fa fa-circle-o"></i> 设备信息</a></li>
                             <li class="assign-device"><a href="assignDevice"><i class="fa fa-circle-o"></i> 分配设备</a></li>
 
                         </ul>
                     </li>
-                    <li class="device-monitor"><a [routerLink]="['/deviceMonitor']" [routerLinkActive]="['active']"><i class="fa fa-circle-o"></i> 远程设备管理</a></li>
+                    <li class="device-monitor"><a [routerLink]="['deviceMonitor']"><i class="fa fa-circle-o"></i> 远程设备管理</a></li>
                 </ul>
             </li>
             <li class="video-manage">
@@ -57,7 +57,7 @@
                 </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="video-stream"><a [routerLink]="['/videoManage']"><i class="fa fa-circle-o"></i> 视频流调度</a></li>
+                    <li class="video-stream"><a [routerLink]="['videoManage']"><i class="fa fa-circle-o"></i> 视频流调度</a></li>
                 </ul>
             </li>
             <li class="treeview system-manage">

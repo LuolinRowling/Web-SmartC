@@ -338,7 +338,7 @@
                     "singlechipTypeId" : 0,
                     "singlechipStatus" : 1,
                     "raspberryTypeId" : 0,
-                    "raspberryStatus" : 1,
+                    "raspberryStatus" : 0,
                     "raspberryCode" : "222",
                     "raspberryStreamStatus" : 0,
                     "singleChipTypeId" : 0,

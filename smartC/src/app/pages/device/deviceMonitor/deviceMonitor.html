@@ -25,8 +25,8 @@
                     <div class="box">
                         <div class="box-header">
                             <h3 class="box-title">远程列表 </h3>
-                            <a class="btn btn-warning btn-flat pull-right" onclick="editAllDevice('open')">一键开启</a>
-                            <a class="btn btn-primary btn-flat pull-right" style="margin-right: 10px" onclick="editAllDevice('close')">一键关闭</a>
+                            <a class="btn btn-warning btn-flat pull-right" (click)="editAllDevice('open')">一键开启</a>
+                            <a class="btn btn-primary btn-flat pull-right" style="margin-right: 10px" (click)="editAllDevice('close')">一键关闭</a>
                             <button type="button" class="btn btn-success btn-xs col">开启</button>当前设备离线&nbsp;
                             <button type="button" class="btn btn-success btn-xs col">关闭</button>当前设备在线&nbsp;
                             <button type="button" class="btn btn-danger btn-xs col">异常</button>当前设备异常&nbsp;
@@ -63,7 +63,7 @@
                                         <td>{{device.buildingNum}} {{device.classroomNum}}</td>
                                         <td>
                                             <button [disabled]="device.raspberryStatus!=1" *ngIf="device.computerStatus==0" type="button" class="btn btn-success btn-xs col" (click)="operateDevice(device.id,'computer','open')">开启</button>
-                                            <button [disabled]="device.raspberryStatus!=1" *ngIf="device.computerStatus==1" type="button" class="btn btn-success btn-xs col" (click)="operateDevice(device.id,'computer','close')">关闭</button>
+                                            <button [disabled]="device.raspberryStatus!=1" *ngIf="device.computerStatus==1" type="button" class="btn btn-success btn-xs col" (click)="operateDevice(device.id,'computer','close',$event)">关闭</button>
                                             <button [disabled]="device.raspberryStatus!=1" *ngIf="device.computerStatus==2" type="button" class="btn btn-danger btn-xs col" (click)="operateDevice(device.id,'computer','open')">异常</button>
                                         </td>
                                         <td>
@@ -91,16 +91,6 @@
                                     </tr>
                                 </tbody>
                                 <tfoot>
-                                <!-- <tr>
-                                    <th>编号</th>
-                                    <th>教室</th>
-                                    <th>电脑</th>
-                                    <th>摄像头</th>
-                                    <th>投影仪</th>
-                                    <th>树莓派</th>
-                                    <th>操作</th>
-                                    
-                                </tr> -->
                                     <tr>
                                         <td colspan="7">
                                             <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
@@ -137,34 +127,7 @@
 </div>
 <!-- ./wrapper -->
 
-<script>
-    // $(function () {
-    //     $("#example1").DataTable();
-    //     $('#example2').DataTable({
-    //         "paging": true,
-    //         "lengthChange": false,
-    //         "searching": false,
-    //         "ordering": true,
-    //         "info": true,
-    //         "autoWidth": false,
-    //         "fnRowCallback": function( nRow, aData, iDisplayIndex ) {
-    //             /* Append the grade to the default row class name */
-    //             changeButtonDisable();
-    //             //return nRow;
-    //         }
-    //     });
-    // });
-    // function changeButtonDisable(){
-    //     //树莓派异常或关闭  所有操作都不能进行
-    //     $(".device-disabled").children("td").children("button").attr("disabled","true");
-    //     $(".device-disabled .device-checkbox").attr("disabled","true");
-    //     //单片机异常或关闭  电脑和投影仪 都不能进行
-    //     $(".singlechip-disabled").children("button").attr("disabled","true");
-    // }
-</script>
 
-
-<script src="../../assets/xset/deviceMonitor.js"></script>
 <script src="../../assets/xset/judgePage.js"></script>
     <!-- 导航栏 -->
     <!-- <script src="../../assets/xset/judgeMessage.js"></script>

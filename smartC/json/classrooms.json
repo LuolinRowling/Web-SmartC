@@ -1,0 +1,19 @@
+{
+    "msg": "调用成功",
+    "code": "0000",
+    "data": {
+        "classroomList": [
+                {
+                    "id" : 0,
+                    "classroomNum" : "101",
+                    "bid" : 0
+                },
+                {
+                    "id" : 1,
+                    "classroomNum" : "102",
+                    "bid" : 0
+                }
+
+        ]
+            }
+}
