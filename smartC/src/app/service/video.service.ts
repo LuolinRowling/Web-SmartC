@@ -4,6 +4,7 @@
 import { Device } from '../entity/device.entity';
 import { Building } from '../entity/building.entity';
 import { Classroom } from '../entity/classroom.entity';
+import { BuildClass } from '../entity/buildclass.entity';
 
 import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
@@ -28,6 +29,11 @@ export class VideoService {
              .catch(this.handleError);
   	}
 
+    /**
+     * [changeClassByBuildName 根据选择的教学楼重新获取教室号]
+     * @param  {[string]}               name [教学楼名]
+     * @return {Promise<Classroom[]>}      [教室列表]
+     */
     changeClassByBuildName(name): Promise<Classroom[]> {
       let data = {
         "name": name
@@ -39,7 +45,17 @@ export class VideoService {
               .catch(this.handleError);
     }
   	
-
+    /**
+     * [getMultiPullStreamTree 获取可以拉流的教学楼教室列表]
+     * @return {Promise<BuildClass[]>} [教学楼教室列表]
+     */
+    getMultiPullStreamTree(): Promise<BuildClass[]>{
+      return this.http
+              .post('/ajax_multi_pull_stream_tree',{headers: this.headers})
+              .toPromise()
+              .then(response => response.json().data.buildClassList as BuildClass[])
+              .catch(this.handleError);
+    }
     /**
      * [operateAllDevice 一键操作所有设备]
      * @param {[type]} operate [操作类型 open close]

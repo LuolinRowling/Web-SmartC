@@ -1,0 +1,20 @@
+{
+    "msg": "调用成功",
+    "code": "0000",
+    "data": {
+        "buildClassList": [
+                {
+                    "classroomNum" : "101",
+                    "buildingNum" : "逸夫楼"
+                },
+                {
+                    "classroomNum" : "102",
+                    "buildingNum" : "思源楼"
+                },
+                {
+                    "classroomNum" : "103",
+                    "buildingNum" : "第二教学楼"
+                }
+                 ]
+            }
+}
