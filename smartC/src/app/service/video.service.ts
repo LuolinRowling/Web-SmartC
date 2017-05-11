@@ -56,18 +56,40 @@ export class VideoService {
               .then(response => response.json().data.buildClassList as BuildClass[])
               .catch(this.handleError);
     }
+
     /**
-     * [operateAllDevice 一键操作所有设备]
-     * @param {[type]} operate [操作类型 open close]
+     * [startMultiplePullOperate 操作多个教室拉流]
+     * @param  {[type]}       inputBuilding  [选择的教学楼]
+     * @param  {[type]}       inputClassroom [选择的教室]
+     * @param  {[type]}       pullList       [需要拉流的多个教室列表]
+     * @return {Promise<any>}                []
      */
-    operateAllDevice(operate): void{
-      let url = '/ajax_edit_all_device_status';
+    startMultiplePullOperate(inputBuilding,inputClassroom,pullList): Promise<any>{
+      let url = '/ajax_multiple_pull_stream_status';
       let data = {
-        "operation":operate
-      }
-      this.commonOperatFunc(url,data);
+        "buildingNum":inputBuilding,
+        "classroomNum":inputClassroom,
+        "pullList":pullList
+      };
+      return this.commonOperatFunc(url,data);
     }
 
+    /**
+     * [startPullOperate 操作单个教室拉流]
+     * @param  {[type]}       inputBuilding  [选择的教学楼]
+     * @param  {[type]}       inputClassroom [选择的教室]
+     * @param  {[type]}       pullId         [设备ID]
+     * @return {Promise<any>}                []
+     */
+    startPullOperate(inputBuilding,inputClassroom,pullId): Promise<any>{
+      let url = '/ajax_pull_stream_status';
+      let data = {
+        "buildingNum":inputBuilding,
+        "classroomNum":inputClassroom,
+        "did":pullId
+      };
+      return this.commonOperatFunc(url,data);
+    }
 
 
     /**
@@ -75,12 +97,12 @@ export class VideoService {
      * @param {[type]} url  [访问地址]
      * @param {[type]} data [传输数据]
      */
-    commonOperatFunc(url,data): void{
+    commonOperatFunc(url,data): Promise<any>{
       console.log(data);
-      this.http
-        .post(url, JSON.stringify(data), {headers: this.headers})
+      return this.http
+        .post(url,JSON.stringify(data),{headers: this.headers})
         .toPromise()
-        .then(res => res.json().data)
+        .then(response => response.json().data)
         .catch(this.handleError);
     }
 

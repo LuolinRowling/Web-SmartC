@@ -4,7 +4,6 @@ import { SidebarComponent } from './pages/sidebar/sidebar';
 import { NavComponent } from './pages/navigation/navigation';
 import { deviceMonitorPage } from './pages/device/deviceMonitor/deviceMonitor';
 import { videoManagePage } from './pages/video/videoManage/videoManage';
-import { videoMultiPullPage } from './pages/video/videoManage/videoMultiPull/videoMultiPull';
 
 export const MAINMENU_ROUTES = [
     //full : makes sure the path is absolute path
@@ -12,6 +11,5 @@ export const MAINMENU_ROUTES = [
     { path: 'login', component: LoginPage },
     { path: 'deviceMonitor', component: deviceMonitorPage },
     { path: 'videoManage', component: videoManagePage },
-    { path: 'videoMultiPull', component: videoMultiPullPage },
 ];
 //export const CONST_ROUTING = RouterModule.forRoot(MAINMENU_ROUTES);
