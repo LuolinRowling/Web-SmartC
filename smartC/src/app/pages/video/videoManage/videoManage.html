@@ -84,7 +84,7 @@
                                             </div>
                                         </td>
                                         <td class="table-td">
-                                            <a class="btn btn-primary btn-xs col" href="videoLive.jsp?id=device.id" target="_blank">播放视频</a>
+                                            <a [routerLink]="['/videoLive']" [queryParams]= "{id:device.id}"  target="_blank" class="btn btn-primary btn-xs col">播放视频</a>
                                         </td>                                    
                                     </tr>
                                 </tbody>

@@ -2,7 +2,7 @@
  * 摄像机实体类
  */
 export class Camera{
-	camerId : number;
+	cameraId : number;
 	cameraTypeId : number;
     cameraStatus : number;
     cameraAngle : string;

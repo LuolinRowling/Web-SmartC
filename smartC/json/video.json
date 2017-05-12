@@ -1,0 +1,8 @@
+{
+    "msg": "调用成功",
+    "code": "0000",
+    "data": {
+        "judge" : 0,
+        "address" : "http://play.bcelive.com/live/lss-gm4k64ts8y7kevfi.flv"
+    }
+}

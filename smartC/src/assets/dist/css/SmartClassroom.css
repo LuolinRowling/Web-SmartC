@@ -41,7 +41,7 @@ h1,h2,h3,h4,h5,h6{
 .videoBox{
     width: 690px;
     height: 400px;
-    margin-left: 10px;
+    margin: 10px auto;
     background: rgba(0,0,0,.5) url(../img/case_video_bg.png) no-repeat center center;
     _background:#606875 url(../img/case_video_bg.png) no-repeat center center;
 }
@@ -52,11 +52,10 @@ ul.ztree {margin-top: 10px;border: 1px solid #ccc;width:360px;height:250px;overf
 
 .btn-group-camera{
     width: 690px;
-    margin-left: 10px;
-    margin-bottom: 10px;
+    margin: 10px auto;
 }
 .btn-group-adjust{
-    width: 690px;
+    width: 330px;
     margin: 10px auto;
 }
 .btn-group-adjust button{

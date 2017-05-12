@@ -15,6 +15,7 @@ import { SidebarComponent } from './pages/sidebar/sidebar';
 
 import { deviceMonitorPage } from './pages/device/deviceMonitor/deviceMonitor';
 import { videoManagePage } from './pages/video/videoManage/videoManage';
+import { videoLivePage } from './pages/video/videoLive/videoLive';
 
 import { StorageService } from './service/storage.service';
 import { UserService } from './service/user.service';
@@ -28,7 +29,8 @@ import { VideoService } from './service/video.service';
     NavComponent,
     LoginPage,
     deviceMonitorPage,
-    videoManagePage
+    videoManagePage,
+    videoLivePage
   ],
   imports: [
     BrowserModule,

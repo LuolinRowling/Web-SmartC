@@ -91,7 +91,37 @@ export class VideoService {
       return this.commonOperatFunc(url,data);
     }
 
+    /**
+     * [getPullAddress 获取视频播放地址]
+     * @param  {[type]}       id     [设备ID]
+     * @param  {[type]}       code   [摄像头code 区分]
+     * @return {Promise<any>}        []
+     */
+    getPullAddress(id,code): Promise<any>{
+      let url = '/ajax_get_pull_address';
+      let data = {
+        'id': id,
+        'code':code
+      };
+      return this.commonOperatFunc(url,data);
+    }
 
+    /**
+     * [directorCamera 摄像头导播]
+     * @param  {[type]}       id        [设备ID]
+     * @param  {[type]}       code      [区分摄像头（1、2、3...） ]
+     * @param  {[type]}       direction [方向 up down left right]
+     * @return {Promise<any>}           []
+     */
+    directorCamera(id,code,direction): Promise<any>{
+      let url = '/ajax_director_camera';
+      let data = {
+        'id': id,
+        'code': code,
+        'direction': direction
+      }
+      return this.commonOperatFunc(url,data)
+    }
     /**
      * [commonOperatFunc 公共方法]
      * @param {[type]} url  [访问地址]

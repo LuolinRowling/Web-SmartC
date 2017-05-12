@@ -104,6 +104,17 @@ export class DeviceService {
       this.commonOperatFunc(url,data);
     }
 
+    getDeviceInfoById(id): Promise<Device>{
+      let url = '/ajax_get_classroom_info';
+      let data = {
+        'did' : id
+      };
+      return this.http
+          .post(url, JSON.stringify(data), {headers: this.headers})
+          .toPromise()
+          .then(response => response.json().data.deviceInfo as Device)
+          .catch(this.handleError);
+    }
     /**
      * [commonOperatFunc 公共方法]
      * @param {[type]} url  [访问地址]
