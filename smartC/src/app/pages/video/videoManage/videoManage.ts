@@ -23,7 +23,7 @@ export class videoManagePage implements OnInit{
 	classrooms : Classroom[];
 	buildclasses : BuildClass[];
 
-	public filterQuery = "";
+  public filterQuery = "";
   public rowsOnPage = 10;
   public sortOrder = "asc";
 
@@ -57,7 +57,7 @@ export class videoManagePage implements OnInit{
 	 * [getDevices 获取设备列表]
 	 */
 	getDevices(): void {
-		this.deviceService.getDevices().then(devices => {
+		this.videoService.getVideoDevices().then(devices => {
 		this.data = devices;
 		});
 	}
@@ -72,7 +72,7 @@ export class videoManagePage implements OnInit{
 	operateStream(id,operate,code,_event): void{
 		console.log(_event);
     this.changeOtherButton(id,code);
-		this.deviceService.operateStream(id,operate);
+		this.videoService.operateStream(id,operate);
 	}
 
 	/**
@@ -194,6 +194,7 @@ export class videoManagePage implements OnInit{
 	 * @param {[type]} pullList [被选中的需要拉流教室的列表]
 	 */
 	startMultiplePullOperate(pullList): void{
+    console.log(pullList);
     if((this.buildModel.length==0) || (this.classModel.length==0) || (pullList.length==0)){
       this.judgeRight = false;
     }else{

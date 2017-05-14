@@ -33,7 +33,7 @@ export class LoginPage{
 	login(user,event): void{
 		this.userSevice.login(user.LoginName,user.LoginPwd).then(data => {
 			console.log(data);
-			if(data.msg == "0"){
+			if(data.judge == "0"){
 				this.storageService.write('user',data.user);
 				this.router.navigate(['/deviceMonitor']);        		
 			}else{

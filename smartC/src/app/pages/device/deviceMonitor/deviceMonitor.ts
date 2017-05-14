@@ -18,8 +18,6 @@ export class deviceMonitorPage implements OnInit{
     public sortBy = "email";
     public sortOrder = "asc";
 
-
-  	//@ViewChild('table') el:ElementRef;
   	constructor(
   		private deviceService: DeviceService) {
   	} 
@@ -29,7 +27,8 @@ export class deviceMonitorPage implements OnInit{
   	 */
   	getDevices(): void {
   		this.deviceService.getDevices().then(devices => {
-			this.data = devices;
+			  this.data = devices;
+        console.log(this.data);
   		});
   	}
   	/**
@@ -47,11 +46,12 @@ export class deviceMonitorPage implements OnInit{
   	 * [operateCamera 操作摄像头状态]
   	 * @param {[type]} id       [设备ID]
   	 * @param {[type]} cameraId [摄像头ID]
-  	 * @param {[type]} device   [设备]
+  	 * @param {[type]} code     [摄像头code]
   	 * @param {[type]} operate  [操作 open close]
   	 */
-  	operateCamera(id,cameraId,device,operate): void{
-  		this.deviceService.operateCamera(id,cameraId,operate);
+  	operateCamera(id,cameraId,code,operate): void{
+      console.log(code);
+  		this.deviceService.operateCamera(id,cameraId,code+1,operate);
   	}
   	
   	/**

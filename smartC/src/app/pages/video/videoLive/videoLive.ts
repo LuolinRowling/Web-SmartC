@@ -3,8 +3,6 @@ import { ActivatedRoute,Params } from "@angular/router";
 import { Location }     from '@angular/common';
 
 import { VideoService } from '../../../service/video.service';
-import { DeviceService } from '../../../service/device.service';
-
 
 import { Device } from '../../../entity/device.entity';
 import { Camera } from '../../../entity/camera.entity';
@@ -27,16 +25,16 @@ export class videoLivePage implements OnInit {
 
 	constructor(
 		private route: ActivatedRoute,
-		private videoService: VideoService,
-		private deviceService: DeviceService) {}
+		private videoService: VideoService) {}
 
 	/**
 	 * [getPullAddress 获取视频播放地址]
 	 * @param {[type]} cameraId [摄像头ID]
 	 */
-	getPullAddress(cameraId): void{
-		console.log(cameraId);
-		this.getCode(cameraId);
+	getPullAddress(cameraId,code): void{
+		console.log(cameraId,code);
+		//this.getCode(cameraId);
+		this.cameraCode = code+1;
 		this.videoService.getPullAddress(this.id,this.cameraCode).then(
 			data=>{
     		if(data.judge == 0){
@@ -51,11 +49,12 @@ export class videoLivePage implements OnInit {
 	 * [InitDeviceAddress 进入页面初始化设备信息以及获取地址]
 	 */
 	InitDeviceAddress(): void{
-		this.deviceService.getDeviceInfoById(this.id).then(device => {
+		this.videoService.getDeviceInfoById(this.id).then(device => {
 			this.device = device;
+			console.log(this.device);
 			this.cameras = device.cameraList;
 			if(this.address == null&&this.cameras.length>0){
-				this.getPullAddress(this.cameras[0].cameraId)
+				this.getPullAddress(this.cameras[0].cameraId,0)
 			}
 		})
 	}
@@ -103,20 +102,6 @@ export class videoLivePage implements OnInit {
 		this.videoService.directorCamera(this.id,this.cameraCode,direction);
 	}
 
-	/**
-	 * [getCode 根据摄像头ID获取对应的code]
-	 * @param {[type]} cameraId [摄像头ID]
-	 */
-	getCode(cameraId): void{
-		let i = 1;
-		for(let camera of this.cameras){
-			if(camera.cameraId == cameraId){
-				this.cameraCode = i;
-				break;
-			}
-			i++;
-		}
-	}
 	ngOnInit(): void{
         this.route.queryParams.subscribe((data: any) => {
     		this.id = data.id;

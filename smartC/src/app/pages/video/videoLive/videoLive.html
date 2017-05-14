@@ -29,8 +29,8 @@
                         <!-- /.box-header -->
                         <div class="box-body">
                             <div class="btn-group btn-group-justified btn-group-camera"  role="group" aria-label="...">
-                                <div *ngFor="let camera of cameras" class="btn-group" role="group">
-                                    <button type="button" class="btn btn-default" (click)="getPullAddress(camera.cameraId)">{{camera.cameraName}}</button>
+                                <div *ngFor="let camera of cameras;let i = index" class="btn-group" role="group">
+                                    <button type="button" class="btn btn-default" (click)="getPullAddress(camera.cameraId,i)">{{camera.cameraAngle}}</button>
                                 </div>
                             </div>
                             <div class="videoBox">
@@ -70,12 +70,4 @@
     <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
-
-
-<!-- page script -->
-<script src="../../assets/xset/videoManage.js"></script>
-<script src="../../assets/xset/judgePage.js"></script>
-    <!-- 导航栏 -->
-    <!-- <script src="../../assets/xset/judgeMessage.js"></script>
-    <script src="../../assets/xset/navigation.js"></script>-->
 </body>

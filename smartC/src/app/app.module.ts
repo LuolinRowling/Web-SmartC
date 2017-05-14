@@ -4,8 +4,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MAINMENU_ROUTES } from './app.router';
 import { RouterModule } from '@angular/router';
-import {DataTableModule} from "angular2-datatable";
+import { DataTableModule } from "angular2-datatable";
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastModule } from 'ng2-toastr/ng2-toastr';
+import { CustomOption } from './custom-option';
+import { ToastOptions } from 'ng2-toastr';
 
 import { AppComponent } from './app.component';
 import { LoginPage } from './pages/login/login';
@@ -21,6 +25,7 @@ import { StorageService } from './service/storage.service';
 import { UserService } from './service/user.service';
 import { DeviceService } from './service/device.service';
 import { VideoService } from './service/video.service';
+import { MessageService } from './service/message.service';
 
 @NgModule({
   declarations: [
@@ -40,13 +45,17 @@ import { VideoService } from './service/video.service';
     //CONST_ROUTING,
     DataTableModule,
     RouterModule.forRoot(MAINMENU_ROUTES),
-    Ng2Bs3ModalModule
+    Ng2Bs3ModalModule,
+    BrowserAnimationsModule,
+    ToastModule.forRoot()
   ],
   providers: [
+    {provide: ToastOptions, useClass: CustomOption},
     StorageService,
     UserService,
     DeviceService,
-    VideoService
+    VideoService,
+    MessageService
   ],
   bootstrap: [AppComponent]
 })

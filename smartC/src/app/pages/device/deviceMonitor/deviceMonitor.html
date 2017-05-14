@@ -1,4 +1,4 @@
-<body class="hold-transition skin-blue sidebar-mini">    
+ <body class="hold-transition skin-blue sidebar-mini">    
     
 <div class="wrapper">
     <nav-component></nav-component>
@@ -67,11 +67,11 @@
                                             <button [disabled]="device.raspberryStatus!=1" *ngIf="device.computerStatus==2" type="button" class="btn btn-danger btn-xs col" (click)="operateDevice(device.id,'computer','open')">异常</button>
                                         </td>
                                         <td>
-                                            <span *ngFor="let camera of device.cameraList">
+                                            <span *ngFor="let camera of device.cameraList ; let i = index">
                                                 {{camera.cameraAngle}}:
-                                                <button [disabled]="device.raspberryStatus!=1" *ngIf="camera.cameraStatus==0" type="button" class="btn btn-success btn-xs col" (click)="operateCamera(device.id,camera.cameraId,'camera','open')">开启</button>
-                                                <button [disabled]="device.raspberryStatus!=1" *ngIf="camera.cameraStatus==1" type="button" class="btn btn-success btn-xs col" (click)="operateCamera(device.id,camera.cameraId,'camera','close')">关闭</button>
-                                                <button [disabled]="device.raspberryStatus!=1" *ngIf="camera.cameraStatus==2" type="button" class="btn btn-danger btn-xs col" (click)="operateCamera(device.id,camera.cameraId,'camera','open')">异常</button>
+                                                <button [disabled]="device.raspberryStatus!=1" *ngIf="camera.cameraStatus==0" type="button" class="btn btn-success btn-xs col" (click)="operateCamera(device.id,camera.cameraId,i,'open')">开启</button>
+                                                <button [disabled]="device.raspberryStatus!=1" *ngIf="camera.cameraStatus==1" type="button" class="btn btn-success btn-xs col" (click)="operateCamera(device.id,camera.cameraId,i,'close')">关闭</button>
+                                                <button [disabled]="device.raspberryStatus!=1" *ngIf="camera.cameraStatus==2" type="button" class="btn btn-danger btn-xs col" (click)="operateCamera(device.id,camera.cameraId,i,'open')">异常</button>
                                             </span>
                                         </td>
                                         <td>

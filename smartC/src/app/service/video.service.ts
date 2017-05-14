@@ -13,17 +13,44 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 
 export class VideoService {
-	private videoUrl = 'api/videos';
-	private headers = new Headers({'Content-Type': 'application/json'});
+	private videoUrl = 'http://192.168.1.105:8080/videos/';
+	private headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
 
 	constructor(private http: Http) { }
 	
+    /**
+     * [getVideoDevices 获取设备列表]
+     * @return {Promise<Device[]>} [设备列表]
+     */
+    getVideoDevices(): Promise<Device[]> {
+      return this.http.get(this.videoUrl)
+             .toPromise()
+             .then(response => response.json().data.deviceStatusList as Device[])
+             .catch(this.handleError);
+    }
+   
+    /**
+     * [getDeviceInfoById description]
+     * @param  {[type]}          id [description]
+     * @return {Promise<Device>}    [description]
+     */
+    getDeviceInfoById(id): Promise<Device>{
+      let url = this.videoUrl+'classroomInfo/'+id;
+      let data = {
+        'did' : id
+      };
+      return this.http
+          .get(url)
+          .toPromise()
+          .then(response => response.json().data.deviceInfo as Device)
+          .catch(this.handleError);
+    }
 	  /**
      * [getPushingBuildClass 获取正在推流的教学楼和教室]
      * @return {Promise<any>} [教学楼列表 以及 第一个教学楼写的教室列表]
      */
   	getPushingBuildClass(): Promise<any> {
-    	return this.http.get('/ajax_get_push_building')
+    	return this.http.get(this.videoUrl+'pushBuilding')
              .toPromise()
              .then(response => response.json().data)
              .catch(this.handleError);
@@ -35,25 +62,42 @@ export class VideoService {
      * @return {Promise<Classroom[]>}      [教室列表]
      */
     changeClassByBuildName(name): Promise<Classroom[]> {
+      let url = this.videoUrl + 'classroomByBuilding?name='+name;
       let data = {
         "name": name
       };
       return this.http
-              .post('/ajax_get_classroom_by_building',JSON.stringify(data),{headers: this.headers})
+              .get(url)
               .toPromise()
               .then(response => response.json().data.classroomList as Classroom[])
               .catch(this.handleError);
     }
   	
+     /**
+     * [operateStream 操作视频推拉流]
+     * @param {[type]} id      [教室设备列表id]
+     * @param {[type]} operate [操作类型 start_push|broadcast stop_push|pull|broadcast]
+     */
+    operateStream(id,operate): void{
+      //let url = '/ajax_edit_stream_status';
+      let url = this.videoUrl+id+'?operation='+operate;
+      let data = {
+        "did":id,
+        "operation":operate
+      }
+      this.commonOperateGetFunc(url);
+    }
+
     /**
      * [getMultiPullStreamTree 获取可以拉流的教学楼教室列表]
      * @return {Promise<BuildClass[]>} [教学楼教室列表]
      */
     getMultiPullStreamTree(): Promise<BuildClass[]>{
+      let url = this.videoUrl + 'pullStreamTree';
       return this.http
-              .post('/ajax_multi_pull_stream_tree',{headers: this.headers})
+              .get(url,{headers: this.headers})
               .toPromise()
-              .then(response => response.json().data.buildClassList as BuildClass[])
+              .then(response => response.json().data as BuildClass[])
               .catch(this.handleError);
     }
 
@@ -65,7 +109,8 @@ export class VideoService {
      * @return {Promise<any>}                []
      */
     startMultiplePullOperate(inputBuilding,inputClassroom,pullList): Promise<any>{
-      let url = '/ajax_multiple_pull_stream_status';
+      //let url = '/ajax_multiple_pull_stream_status';
+      let url = this.videoUrl+'multiplePullStreamStatus';
       let data = {
         "buildingNum":inputBuilding,
         "classroomNum":inputClassroom,
@@ -82,13 +127,15 @@ export class VideoService {
      * @return {Promise<any>}                []
      */
     startPullOperate(inputBuilding,inputClassroom,pullId): Promise<any>{
-      let url = '/ajax_pull_stream_status';
+      //let url = '/ajax_pull_stream_status';
+
+      let url = this.videoUrl+'pull/'+pullId+'?buildingNum='+inputBuilding+'&classroomNum='+inputClassroom;
       let data = {
         "buildingNum":inputBuilding,
         "classroomNum":inputClassroom,
         "did":pullId
       };
-      return this.commonOperatFunc(url,data);
+      return this.commonOperateGetFunc(url);
     }
 
     /**
@@ -98,12 +145,13 @@ export class VideoService {
      * @return {Promise<any>}        []
      */
     getPullAddress(id,code): Promise<any>{
-      let url = '/ajax_get_pull_address';
+      let url = this.videoUrl+'play/'+id+'?code='+code;
+      //let url = '/ajax_get_pull_address';
       let data = {
-        'id': id,
+        'did': id,
         'code':code
       };
-      return this.commonOperatFunc(url,data);
+      return this.commonOperateGetFunc(url);
     }
 
     /**
@@ -114,28 +162,41 @@ export class VideoService {
      * @return {Promise<any>}           []
      */
     directorCamera(id,code,direction): Promise<any>{
-      let url = '/ajax_director_camera';
-      let data = {
-        'id': id,
-        'code': code,
-        'direction': direction
-      }
-      return this.commonOperatFunc(url,data)
+      let url = this.videoUrl+'camera/'+id+'?code='+code+'&direction='+direction;
+      //let url = '/ajax_director_camera';
+      // let data = {
+      //   'did': id,
+      //   'code': code,
+      //   'direction': direction
+      // }
+      return this.commonOperateGetFunc(url)
     }
     /**
-     * [commonOperatFunc 公共方法]
+     * [commonOperatFunc 公共Post方法]
      * @param {[type]} url  [访问地址]
      * @param {[type]} data [传输数据]
      */
     commonOperatFunc(url,data): Promise<any>{
       console.log(data);
       return this.http
-        .post(url,JSON.stringify(data),{headers: this.headers})
+        .post(url,JSON.stringify(data))
         .toPromise()
         .then(response => response.json().data)
         .catch(this.handleError);
     }
 
+    /**
+     * [commonOperaGetFunc 公共Get方法]
+     * @param {[type]} url  [访问地址]
+     */
+    commonOperateGetFunc(url): Promise<any>{
+      console.log(url);
+      return this.http
+        .get(url)
+        .toPromise()
+        .then(response => response.json().data)
+        .catch(this.handleError);
+    }
     private handleError(error: any): Promise<any> {
       console.error('An error occurred', error); // for demo purposes only
       return Promise.reject(error.message || error);
