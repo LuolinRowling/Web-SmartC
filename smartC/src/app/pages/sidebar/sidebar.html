@@ -39,11 +39,11 @@
                 </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="edit-device">
+                    <li class="edit-device" routerLinkActive="active">
                         <a href="#"><i class="fa fa-circle-o"></i> 编辑设备</a>
                         <ul class="treeview-menu">
-                            <li class="device-info"><a [routerLink]="['deviceInfo']"><i class="fa fa-circle-o"></i> 设备信息</a></li>
-                            <li class="assign-device"><a href="assignDevice"><i class="fa fa-circle-o"></i> 分配设备</a></li>
+                            <li routerLinkActive="active" class="device-info"><a routerLink="/deviceInfo"><i class="fa fa-circle-o"></i> 设备信息</a></li>
+                            <li routerLinkActive="active" class="assign-device"><a routerLink="/assignDevice"><i class="fa fa-circle-o"></i> 分配设备</a></li>
 
                         </ul>
                     </li>
@@ -68,13 +68,13 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="#"><i class="fa fa-circle-o"></i> 学校课表管理</a></li>
-                    <li class="privilege-manage">
+                    <li class="privilege-manage" routerLinkActive="active">
                         <a href="#">
                             <i class="fa fa-circle-o"></i> 权限管理
                         </a>
                         <ul class="treeview-menu">
-                            <li class="user-manage"><a href="userManage"><i class="fa fa-circle-o"></i> 用户管理</a></li>
-                            <li class="role-manage"><a href="roleManage"><i class="fa fa-circle-o"></i> 角色管理</a></li>
+                            <li routerLinkActive="active" class="user-manage"><a routerLink="/userManage"><i class="fa fa-circle-o"></i> 用户管理</a></li>
+                            <li routerLinkActive="active" class="role-manage"><a routerLink="/roleManage"><i class="fa fa-circle-o"></i> 角色管理</a></li>
                         </ul>
                     </li>
                     <li><a href="#"><i class="fa fa-circle-o"></i> 日志管理</a></li>

@@ -20,12 +20,16 @@ import { SidebarComponent } from './pages/sidebar/sidebar';
 import { deviceMonitorPage } from './pages/device/deviceMonitor/deviceMonitor';
 import { videoManagePage } from './pages/video/videoManage/videoManage';
 import { videoLivePage } from './pages/video/videoLive/videoLive';
+import { userManagePage } from './pages/settings/userManage/userManage';
 
 import { StorageService } from './service/storage.service';
 import { UserService } from './service/user.service';
 import { DeviceService } from './service/device.service';
 import { VideoService } from './service/video.service';
 import { MessageService } from './service/message.service';
+import { RoleService } from './service/role.service';
+
+import { Constant } from './common/constant'
 
 @NgModule({
   declarations: [
@@ -35,7 +39,8 @@ import { MessageService } from './service/message.service';
     LoginPage,
     deviceMonitorPage,
     videoManagePage,
-    videoLivePage
+    videoLivePage,
+    userManagePage
   ],
   imports: [
     BrowserModule,
@@ -55,7 +60,9 @@ import { MessageService } from './service/message.service';
     UserService,
     DeviceService,
     VideoService,
-    MessageService
+    MessageService,
+    RoleService,
+    Constant
   ],
   bootstrap: [AppComponent]
 })

@@ -35,7 +35,8 @@ export class LoginPage{
 			console.log(data);
 			if(data.judge == "0"){
 				this.storageService.write('user',data.user);
-				this.router.navigate(['/deviceMonitor']);        		
+				//this.router.navigate(['/ParentRouter']); 
+				location.href='';      		
 			}else{
 				this.judgeMessage = false;
 			}

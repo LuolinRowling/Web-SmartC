@@ -69,3 +69,7 @@ ul.ztree {margin-top: 10px;border: 1px solid #ccc;width:360px;height:250px;overf
 .div-display{
     display: none;
 }
+
+.radio input{
+    margin-top: 10px;
+}

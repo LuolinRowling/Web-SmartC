@@ -16,6 +16,12 @@ export class NavComponent{
     private storageService: StorageService) {
     this.user = this.storageService.read<User>('user');
   }
+
+  logout(): void{
+    this.storageService.remove("user");
+    //this.navCtrl.push(LoginPage);
+    location.reload();
+  }
     
   // Push a search term into the observable stream.
   // gotoDetail(hero: Hero): void {

@@ -1,2 +1,30 @@
-<router-outlet></router-outlet>
+<body class="hold-transition login-page" *ngIf="!judgeLogin"> 	
+	<router-outlet></router-outlet>
+</body>
+
+<body class="hold-transition skin-blue sidebar-mini" *ngIf="judgeLogin">    
+    
+	<div class="wrapper">
+	<nav-component></nav-component>
+	<sidebar-component></sidebar-component>
+
+	<router-outlet></router-outlet>
+	<!-- Main Footer -->
+	<footer class="main-footer">
+	    <!-- To the right -->
+	    <div class="pull-right hidden-xs">
+	        回到顶部
+	    </div>
+	    <!-- Default to the left -->
+	    <strong>Copyright &copy; 2016 <a href="#">XIXI</a>.</strong> All rights reserved.
+	</footer>
+
+	<!-- Add the sidebar's background. This div must be placed
+	     immediately after the control sidebar -->
+	<div class="control-sidebar-bg"></div>
+	</div>
+	<!-- ./wrapper -->
+
+</body>
+
 

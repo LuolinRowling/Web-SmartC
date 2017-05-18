@@ -31,9 +31,11 @@ export class AppComponent implements OnInit{
     this.toastr.setRootViewContainerRef(vcr);
   	this.user = this.storageService.read<User>('user');
     if(this.user != null){
-      	//this.router.navigate(['/deviceMonitor']);
+      this.judgeLogin = true;
+      //this.router.navigate(['/deviceMonitor']);
     }
     else{
+      this.judgeLogin = false;
     	this.router.navigate(['/login']);
     }
   }
