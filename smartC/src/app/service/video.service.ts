@@ -6,6 +6,8 @@ import { Building } from '../entity/building.entity';
 import { Classroom } from '../entity/classroom.entity';
 import { BuildClass } from '../entity/buildclass.entity';
 
+import { Constant } from '../common/constant';
+
 import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
@@ -13,11 +15,16 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 
 export class VideoService {
-	private videoUrl = 'http://192.168.1.105:8080/videos/';
+	private videoUrl : string;
 	private headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
 
-	constructor(private http: Http) { }
+	constructor(
+    private constant : Constant,
+    private http: Http) { 
+    this.videoUrl = constant.URL+'videos/'
+  }
 	
+
     /**
      * [getVideoDevices 获取设备列表]
      * @return {Promise<Device[]>} [设备列表]

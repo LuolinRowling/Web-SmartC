@@ -3,6 +3,8 @@
  */
 import { Device } from '../entity/device.entity'
 
+import { Constant } from '../common/constant';
+
 import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
@@ -10,10 +12,12 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 
 export class DeviceService {
-	private deviceUrl = 'http://192.168.1.105:8080/deviceMonitor/';
+	private deviceUrl : string;
 	private headers = new Headers({'Content-Type': 'application/json'});
 
-	constructor(private http: Http) { }
+	constructor(private constant : Constant,private http: Http) { 
+     this.deviceUrl = constant.URL+'deviceMonitor/'
+  }
 	
 	  /**
 	   * [getDevices 获取设备列表]
