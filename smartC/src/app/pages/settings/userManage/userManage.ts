@@ -83,6 +83,10 @@ export class userManagePage implements OnInit{
   		});
   	}
 
+  	/**
+  	 * [getUserId 获取点击删除的ID]
+  	 * @param {[type]} id [用户ID]
+  	 */
   	getUserId(id): void{
   		this.userId = id;
   	}
@@ -98,7 +102,7 @@ export class userManagePage implements OnInit{
   				if(judge == 0 ){
   					this.tip = this.judgeMsg[7];
   					location.reload();
-  					this.judgeAddInput = true;
+  					//this.judgeAddInput = true;
   				}else if(judge == 9){
 					this.tip = this.judgeMsg[4];
 				}else{
@@ -110,12 +114,15 @@ export class userManagePage implements OnInit{
   		}
   		
   	}
-
+  	/**
+  	 * [editUser 修改用户]
+  	 */
   	editUser(): void{
   		let editUser: User = this.user;
   		let judge = true;
   		editUser.username = this.editInputName;
   		editUser.r_id = this.editSelectRole;
+  		//判断是否需要修改密码
   		if(this.editRadio == 'yes'){
   			editUser.password = this.editInputPassword
   		}
@@ -134,27 +141,28 @@ export class userManagePage implements OnInit{
   				if(judge == 0 ){
   					this.tip = this.judgeMsg[8];
   					location.reload();
-  					this.judgeEditInput = true;
-  				}else{
-  					
-  					if(judge == 9){
-  						this.tip = this.judgeMsg[5];
-  					}else{
-  						//judge 1、2、3
-  						this.tip = this.judgeMsg[judge-1];
-  					}
-  				}
+  					//this.judgeEditInput = true;
+  				}else if(judge == 9){
+					this.tip = this.judgeMsg[5];
+				}else{
+					//judge 1、2、3
+					this.tip = this.judgeMsg[judge-1];
+				}
+  				
   			});
   		}
   	}
 
+  	/**
+  	 * [deleteUser 删除用户]
+  	 */
   	deleteUser(): void{
   		this.userSevice.deleteUser(this.userId).then(data=>{
   			this.judgeDelete = false;
   			if(data.judge==0){
   				this.tip = this.judgeMsg[9];
   				location.reload();
-  				this.judgeDelete = true;
+  				//this.judgeDelete = true;
   			}else{
   				
   				if(data.judge == -1){
