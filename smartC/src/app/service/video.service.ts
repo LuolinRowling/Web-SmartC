@@ -37,8 +37,8 @@ export class VideoService {
     }
    
     /**
-     * [getDeviceInfoById description]
-     * @param  {[type]}          id [description]
+     * [getDeviceInfoById 根据ID获取设备]
+     * @param  {[type]}          id [设备ID]
      * @return {Promise<Device>}    [description]
      */
     getDeviceInfoById(id): Promise<Device>{

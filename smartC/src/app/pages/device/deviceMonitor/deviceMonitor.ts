@@ -38,8 +38,8 @@ export class deviceMonitorPage implements OnInit{
   	 * @param {[type]} operate [操作 open close]
   	 * @param {[type]} _event  [点击事件]
   	 */
-  	operateDevice(id,device,operate,_event): void{
-  		console.log(_event);
+  	operateDevice(id,device,operate): void{
+  		console.log(device);
   		this.deviceService.operateDevice(id,device,operate);
   	}
   	/**

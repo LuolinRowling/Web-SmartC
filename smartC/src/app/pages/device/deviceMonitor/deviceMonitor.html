@@ -58,7 +58,7 @@
                                         <td>{{device.buildingNum}} {{device.classroomNum}}</td>
                                         <td>
                                             <button [disabled]="device.raspberryStatus!=1" *ngIf="device.computerStatus==0" type="button" class="btn btn-success btn-xs col" (click)="operateDevice(device.id,'computer','open')">开启</button>
-                                            <button [disabled]="device.raspberryStatus!=1" *ngIf="device.computerStatus==1" type="button" class="btn btn-success btn-xs col" (click)="operateDevice(device.id,'computer','close',$event)">关闭</button>
+                                            <button [disabled]="device.raspberryStatus!=1" *ngIf="device.computerStatus==1" type="button" class="btn btn-success btn-xs col" (click)="operateDevice(device.id,'computer','close')">关闭</button>
                                             <button [disabled]="device.raspberryStatus!=1" *ngIf="device.computerStatus==2" type="button" class="btn btn-danger btn-xs col" (click)="operateDevice(device.id,'computer','open')">异常</button>
                                         </td>
                                         <td>

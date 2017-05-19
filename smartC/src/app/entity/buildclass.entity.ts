@@ -1,4 +1,8 @@
+import { Building } from './building.entity'
+
 export class BuildClass{
-	buildingNum : string;
+	b_id : number;
+	building : Building;
 	classroomNum : string;
+	id : number;//classroom id
 }

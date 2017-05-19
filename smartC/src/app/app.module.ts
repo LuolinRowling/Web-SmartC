@@ -22,6 +22,8 @@ import { videoManagePage } from './pages/video/videoManage/videoManage';
 import { videoLivePage } from './pages/video/videoLive/videoLive';
 import { userManagePage } from './pages/settings/userManage/userManage';
 import { roleManagePage } from './pages/settings/roleManage/roleManage';
+import { buildClassManagePage } from './pages/settings/buildClassManage/buildClassManage';
+import { addBuildClassPage } from './pages/settings/buildClassManage/addBuildClass/addBuildClass';
 
 import { StorageService } from './service/storage.service';
 import { UserService } from './service/user.service';
@@ -29,6 +31,7 @@ import { DeviceService } from './service/device.service';
 import { VideoService } from './service/video.service';
 import { MessageService } from './service/message.service';
 import { RoleService } from './service/role.service';
+import { BuildClassService } from './service/buildClass.service';
 
 import { Constant } from './common/constant'
 
@@ -42,7 +45,9 @@ import { Constant } from './common/constant'
     videoManagePage,
     videoLivePage,
     userManagePage,
-    roleManagePage
+    roleManagePage,
+    buildClassManagePage,
+    addBuildClassPage
   ],
   imports: [
     BrowserModule,
@@ -64,6 +69,7 @@ import { Constant } from './common/constant'
     VideoService,
     MessageService,
     RoleService,
+    BuildClassService,
     Constant
   ],
   bootstrap: [AppComponent]

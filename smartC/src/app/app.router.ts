@@ -7,6 +7,8 @@ import { videoManagePage } from './pages/video/videoManage/videoManage';
 import { videoLivePage } from './pages/video/videoLive/videoLive';
 import { userManagePage } from './pages/settings/userManage/userManage';
 import { roleManagePage } from './pages/settings/roleManage/roleManage';
+import { buildClassManagePage } from './pages/settings/buildClassManage/buildClassManage';
+import { addBuildClassPage } from './pages/settings/buildClassManage/addBuildClass/addBuildClass';
 
 
 export const MAINMENU_ROUTES = [
@@ -18,5 +20,7 @@ export const MAINMENU_ROUTES = [
     { path: 'videoLive', component: videoLivePage },
     { path: 'userManage', component: userManagePage },
     { path: 'roleManage', component: roleManagePage },
+    { path: 'buildClassManage', component: buildClassManagePage },
+    { path: 'addBuildClass', component: addBuildClassPage },
 ];
 //export const CONST_ROUTING = RouterModule.forRoot(MAINMENU_ROUTES);
