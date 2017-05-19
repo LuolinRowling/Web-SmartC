@@ -6,6 +6,7 @@ import { deviceMonitorPage } from './pages/device/deviceMonitor/deviceMonitor';
 import { videoManagePage } from './pages/video/videoManage/videoManage';
 import { videoLivePage } from './pages/video/videoLive/videoLive';
 import { userManagePage } from './pages/settings/userManage/userManage';
+import { roleManagePage } from './pages/settings/roleManage/roleManage';
 
 
 export const MAINMENU_ROUTES = [
@@ -16,5 +17,6 @@ export const MAINMENU_ROUTES = [
     { path: 'videoManage', component: videoManagePage },
     { path: 'videoLive', component: videoLivePage },
     { path: 'userManage', component: userManagePage },
+    { path: 'roleManage', component: roleManagePage },
 ];
 //export const CONST_ROUTING = RouterModule.forRoot(MAINMENU_ROUTES);

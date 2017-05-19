@@ -62,7 +62,7 @@ export class userManagePage implements OnInit{
   	 */
   	getUsers(): void{
   		this.userSevice.getUsers().then(data=>{
-  			console.log(data);
+  			//console.log(data);
   			this.users = data.userList;
   			this.roles = data.roleList;
   			if(this.roles.length > 0){
@@ -76,7 +76,7 @@ export class userManagePage implements OnInit{
   	 */
   	getUserInfo(id): void{
   		this.userSevice.getUser(id).then(data => {
-  			console.log(data);
+  			//console.log(data);
   			this.user = data.user;
   			this.editInputName = this.user.username;
   			this.editSelectRole = this.user.r_id;

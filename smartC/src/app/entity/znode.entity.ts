@@ -4,4 +4,5 @@ export class ZNode {
     name : string;
     open : boolean;
     icon : string;
+    checked : boolean;
 }

@@ -21,6 +21,7 @@ import { deviceMonitorPage } from './pages/device/deviceMonitor/deviceMonitor';
 import { videoManagePage } from './pages/video/videoManage/videoManage';
 import { videoLivePage } from './pages/video/videoLive/videoLive';
 import { userManagePage } from './pages/settings/userManage/userManage';
+import { roleManagePage } from './pages/settings/roleManage/roleManage';
 
 import { StorageService } from './service/storage.service';
 import { UserService } from './service/user.service';
@@ -40,7 +41,8 @@ import { Constant } from './common/constant'
     deviceMonitorPage,
     videoManagePage,
     videoLivePage,
-    userManagePage
+    userManagePage,
+    roleManagePage
   ],
   imports: [
     BrowserModule,

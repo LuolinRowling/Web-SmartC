@@ -118,7 +118,7 @@ export class videoManagePage implements OnInit{
       let count = 0;
       let countChild = 1;
       for (let i=0;i<buildclasses.length;i++){
-          let nodeHead: ZNode = {id: 0,pId : 0,name : '',open : true,icon : "../assets/dist/img/roll.png"};
+          let nodeHead: ZNode = {id: 0,pId : 0,name : '',open : true,icon : "../assets/dist/img/roll.png",checked:false};
           let buildingNum = buildclasses[i]['buildingNum'];
           if(buildclasses[i]['buildingNum']!=buildNum){
               count++;
@@ -127,7 +127,7 @@ export class videoManagePage implements OnInit{
               nodeHead.name = buildclasses[i]['buildingNum'];
               nodeHead.open = true;
               this.zNodes.push(nodeHead);
-              let node: ZNode = {id: 0,pId : 0,name : '',open : true,icon : "../assets/dist/img/roll.png"};
+              let node: ZNode = {id: 0,pId : 0,name : '',open : true,icon : "../assets/dist/img/roll.png",checked:false};
               node.id = count*10+countChild;
               node.pId = count;
               node.name = buildclasses[i]['classroomNum'];
@@ -135,7 +135,7 @@ export class videoManagePage implements OnInit{
               countChild++;
               buildNum = buildclasses[i]['buildingNum'];
           }else{
-              let node: ZNode = {id: 0,pId : 0,name : '',open : true,icon : "../assets/dist/img/roll.png"};
+              let node: ZNode = {id: 0,pId : 0,name : '',open : true,icon : "../assets/dist/img/roll.png",checked:false};
               node.id = count*10+countChild;
               node.pId = count;
               node.name = buildclasses[i]['classroomNum'];
