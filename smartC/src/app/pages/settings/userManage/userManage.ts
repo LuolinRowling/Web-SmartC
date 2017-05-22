@@ -181,7 +181,7 @@ export class userManagePage implements OnInit{
   	 * @param {[type]} password [密码]
   	 */
   	validateInput(username,password): void{
-  		var usernameRegex = /^[a-zA-Z0-9_]{1,20}$/;
+  		var usernameRegex = /^[(\u4e00-\u9fa5)0-9a-zA-Z\_\s@]{1,20}$/;
   		var passwordRegex = /^[a-zA-Z0-9_]{6,}$/;
   		this.judgeAddInput = false;
   		this.judgeEditInput = false;

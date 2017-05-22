@@ -43,19 +43,20 @@
                                     <label for="inputClassroom_1" class="col-sm-2 control-label">教室号</label>
                                     <span class="glyphicon glyphicon-plus cursor-hand" aria-hidden="true" id="addInputBtn" (click)="addInput()"></span>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control inputClassroom" id="inputClassroom_1" placeholder="教室号">
+                                        <input type="text" class="form-control inputClassroom" placeholder="教室号">
                                     </div>
                                 </div>
                                 <div  *ngFor="let item of items;let i = index" class="form-group">
                                     <label for="inputClassroom" class="col-sm-2 control-label">教室号</label>
                                     <span class="glyphicon glyphicon-remove" (click)="removeInput(i,$event)" aria-hidden="true"></span>
                                     <div class="col-sm-4">
-                                        <input type="text" name="classroom" class="form-control inputClassroom" id="inputClassroom_`+this.FieldCount+`"placeholder="教室号" (value) = "inputs[i]">
+                                        <input type="text" name="classroom" class="form-control inputClassroom" placeholder="教室号" (value) = "inputs[i]">
                                     </div>
                                 </div> 
                             </div>
                             <!-- /.box-body -->
                             <div class="box-footer">
+                                <p class="label label-danger classroom-wrong-tip" [ngClass]="{'div-display':judgeTip}" style="margin-top: 5px;float: left;" >{{tip}}</p>
                                 <button type="button" class="btn btn-info pull-right" (click)="addBuildClass()" id="addBuildClass">添加</button>
                             </div>
                             <!-- /.box-footer -->

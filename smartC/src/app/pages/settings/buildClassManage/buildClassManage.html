@@ -39,9 +39,9 @@
                                         <td>{{buildClass.building.buildingNum}}</td>
                                         <td>{{buildClass.classroomNum}}</td>
                                         <td>
-                                            <span class="label label-success cursor-hand" data-toggle="modal" data-target="#editModal" (click)="getId(buildClass.b_id)"> 修改 </span>
+                                            <span class="label label-success cursor-hand" data-toggle="modal" data-target="#editModal" (click)="recordInfo(buildClass.id,buildClass.building.buildingNum,buildClass.classroomNum)"> 修改 </span>
                                             &nbsp;
-                                            <span class="label label-danger cursor-hand"> 删除 </span>
+                                            <span class="label label-danger cursor-hand" data-toggle="modal" data-target="#deleteModal" (click)="recordInfo(buildClass.id,buildClass.building.buildingNum,buildClass.classroomNum)"> 删除 </span>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -82,14 +82,14 @@
                                 <label for="inputName" class="col-sm-2 control-label">教学楼</label>
 
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="inputName" placeholder="教学楼">
+                                    <input type="text" class="form-control" name="building" placeholder="教学楼" [(ngModel)]="buildClass.building.buildingNum">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="inputPassword3" class="col-sm-2 control-label">教室</label>
+                                <label for="classroom" class="col-sm-2 control-label">教室</label>
 
                                 <div class="col-sm-10">
-                                    <input type="password" class="form-control" id="inputPassword3" placeholder="教室">
+                                    <input type="text" class="form-control" name="classroom" placeholder="教室" [(ngModel)]="buildClass.classroomNum">
                                 </div>
                             </div>
                         </div>
@@ -97,8 +97,9 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <p class="label label-danger edit-wrong-tip" [ngClass]="{'div-display': judgeTips.edit}" style="margin-top: 5px;float: left;" >{{tip}}</p>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary">修改</button>
+                <button type="button" class="btn btn-primary" (click)="editBuildClass()">修改</button>
             </div>
         </div>
     </div>
@@ -115,16 +116,16 @@
                 <div class="form-horizontal" role="form">
 
                     <div class="fcol-sm-5 ">
-                        <p>确定要删除逸夫楼101吗？</p>
+                        <p>确定要删除{{buildClass.building.buildingNum}}{{buildClass.classroomNum}}吗？</p>
 
                     </div>
 
                 </div>
             </div>
             <div class="modal-footer">
-                <p class="label label-danger delete-wrong-tip" style="display:none;margin-top: 5px;float: left;" >教室不存在！</p>
+                <p class="label label-danger delete-wrong-tip" [ngClass]="{'div-display': judgeTips.delete}" style="margin-top: 5px;float: left;" >{{tip}}</p>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="submit" class="btn btn-primary" onclick="deleteUser()">删除</button>
+                <button type="submit" class="btn btn-primary" (click)="deleteBuildClass()">删除</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
