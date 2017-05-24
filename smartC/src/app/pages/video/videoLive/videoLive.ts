@@ -39,7 +39,6 @@ export class videoLivePage implements OnInit {
 			data=>{
     		if(data.judge == 0){
     			this.address = data.address;
-    			console.log(this.address);
     			this.getLineVedio(this.address);
     		}
     	})
@@ -52,6 +51,7 @@ export class videoLivePage implements OnInit {
 		this.videoService.getDeviceInfoById(this.id).then(device => {
 			this.device = device;
 			console.log(this.device);
+			//this.getLineVedio('');
 			this.cameras = device.cameraList;
 			if(this.address == null&&this.cameras.length>0){
 				this.getPullAddress(this.cameras[0].cameraId,0)

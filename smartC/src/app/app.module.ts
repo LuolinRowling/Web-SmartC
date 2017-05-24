@@ -18,6 +18,7 @@ import { SidebarComponent } from './pages/sidebar/sidebar';
 
 
 import { deviceMonitorPage } from './pages/device/deviceMonitor/deviceMonitor';
+import { deviceInfoPage } from './pages/device/deviceManage/deviceInfo/deviceInfo';
 import { videoManagePage } from './pages/video/videoManage/videoManage';
 import { videoLivePage } from './pages/video/videoLive/videoLive';
 import { userManagePage } from './pages/settings/userManage/userManage';
@@ -47,7 +48,8 @@ import { Constant } from './common/constant'
     userManagePage,
     roleManagePage,
     buildClassManagePage,
-    addBuildClassPage
+    addBuildClassPage,
+    deviceInfoPage
   ],
   imports: [
     BrowserModule,

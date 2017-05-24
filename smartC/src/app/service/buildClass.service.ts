@@ -32,6 +32,18 @@ export class BuildClassService {
   }
 
   /**
+   * [getBuildings 获取所有教学楼列表]
+   * @return {Promise<Building[]>} [description]
+   */
+  getBuildings(): Promise<Building[]>{
+    return this.http
+      .get(this.buildClassUrl+'buildings')
+      .toPromise()
+      .then(response=>response.json().data.buildingList)
+      .catch(this.handleError)
+  }
+
+  /**
    * [addBuildCLass 添加教学楼教室]
    * @param  {[type]}       buildingNum   [教学楼]
    * @param  {[type]}       classroomList [教室列表]
@@ -58,6 +70,20 @@ export class BuildClassService {
     var data = buildClass;
     return this.http
       .put(this.buildClassUrl+buildClass.id,data,this.options)
+      .toPromise()
+      .then(response => response.json().data)
+      .catch(this.handleError)
+  }
+
+  /**
+   * [editBuilding 修改教学楼名称]
+   * @param  {Building}     building [教学楼实体]
+   * @return {Promise<any>}          [description]
+   */
+  editBuilding(building:Building): Promise<any>{
+    var data = building;
+    return this.http
+      .put(this.buildClassUrl+'buildings/'+building.id,data,this.options)
       .toPromise()
       .then(response => response.json().data)
       .catch(this.handleError)
