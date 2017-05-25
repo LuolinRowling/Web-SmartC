@@ -9,7 +9,7 @@ import { BuildClass } from '../entity/buildclass.entity';
 import { Constant } from '../common/constant';
 
 import { Injectable } from '@angular/core';
-import { Headers, Http } from '@angular/http';
+import { Headers, Http ,RequestOptions} from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
@@ -17,10 +17,12 @@ import 'rxjs/add/operator/toPromise';
 export class VideoService {
 	private videoUrl : string;
 	private headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+  private options: any;
 
 	constructor(
     private constant : Constant,
     private http: Http) { 
+    this.options = new RequestOptions({headers: this.getHeaders()});
     this.videoUrl = constant.URL+'videos/'
   }
 	
@@ -186,7 +188,7 @@ export class VideoService {
     commonOperatFunc(url,data): Promise<any>{
       console.log(data);
       return this.http
-        .post(url,JSON.stringify(data))
+        .post(url,JSON.stringify(data),this.options)
         .toPromise()
         .then(response => response.json().data)
         .catch(this.handleError);
@@ -207,5 +209,11 @@ export class VideoService {
     private handleError(error: any): Promise<any> {
       console.error('An error occurred', error); // for demo purposes only
       return Promise.reject(error.message || error);
+    }
+
+    private getHeaders(){
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return headers;
     }
 }

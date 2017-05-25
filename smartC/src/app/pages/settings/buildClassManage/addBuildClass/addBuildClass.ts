@@ -111,7 +111,7 @@ export class addBuildClassPage implements OnInit{
 	removeInput(i,_event): boolean{
 		if( this.x >= 1 ) {
 	        _event.toElement.parentElement.remove(); //remove text box
-	        this.x--; 
+	        //this.x--; 
 	    }
 	    return false;
 	}

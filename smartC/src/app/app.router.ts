@@ -4,6 +4,8 @@ import { SidebarComponent } from './pages/sidebar/sidebar';
 import { NavComponent } from './pages/navigation/navigation';
 import { deviceMonitorPage } from './pages/device/deviceMonitor/deviceMonitor';
 import { deviceInfoPage } from './pages/device/deviceManage/deviceInfo/deviceInfo';
+import { assignDevicePage } from './pages/device/deviceManage/assignDevice/assignDevice';
+import { assignDeviceClassroomPage } from './pages/device/deviceManage/assignDevice/assignDeviceClassroom/assignDeviceClassroom';
 import { videoManagePage } from './pages/video/videoManage/videoManage';
 import { videoLivePage } from './pages/video/videoLive/videoLive';
 import { userManagePage } from './pages/settings/userManage/userManage';
@@ -24,5 +26,7 @@ export const MAINMENU_ROUTES = [
     { path: 'buildClassManage', component: buildClassManagePage },
     { path: 'addBuildClass', component: addBuildClassPage },
     { path: 'deviceInfo', component: deviceInfoPage },
+    { path: 'assignDevice', component: assignDevicePage },
+    { path: 'assignDeviceClassroom', component: assignDeviceClassroomPage },
 ];
 //export const CONST_ROUTING = RouterModule.forRoot(MAINMENU_ROUTES);

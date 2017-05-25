@@ -2,6 +2,8 @@
  * 设备service类
  */
 import { Device } from '../entity/device.entity'
+import { DeviceClass } from '../entity/deviceclass.entity'
+import { Classroom } from '../entity/classroom.entity'
 
 import { Constant } from '../common/constant';
 
@@ -13,13 +15,15 @@ import 'rxjs/add/operator/toPromise';
 
 export class DeviceService {
   private deviceUrl : string;
-	private deviceInfoUrl : string;
+  private deviceInfoUrl : string;
+	private assignDeviceUrl : string;
   private options: any;
 	private headers = new Headers({'Content-Type': 'application/json'});
 
 	constructor(private constant : Constant,private http: Http) { 
      this.deviceUrl = constant.URL+'deviceMonitor/';
      this.deviceInfoUrl = constant.URL+'deviceInfos/';
+     this.assignDeviceUrl = constant.URL+'assignDevice/';
      this.options = new RequestOptions({headers: this.getHeaders()});
   }
 	
@@ -128,6 +132,78 @@ export class DeviceService {
         .toPromise()
         .then(response=>response.json().data)
         .catch(this.handleError);
+    }
+
+    /**
+     * [getAssignDevices 获取已经分配设备的教室]
+     * @return {Promise<Device[]>} [description]
+     */
+    getAssignDevices():Promise<DeviceClass[]>{
+      return this.http
+        .get(this.assignDeviceUrl)
+        .toPromise()
+        .then(response=>response.json().data.deviceInfoList as DeviceClass[])
+        .catch(this.handleError);
+    }
+
+    /**
+     * [getDeviceList 获取设备型号列表 教学楼教室]
+     * @return {Promise<any>} [description]
+     */
+    getDeviceList():Promise<any>{
+      return this.http
+        .get(this.assignDeviceUrl+'deviceList')
+        .toPromise()
+        .then(response=>response.json().data)
+        .catch(this.handleError);
+    }
+
+    /**
+     * [changeClassByBuildName 根据选择的教学楼重新获取教室号]
+     * @param  {[string]}               name [教学楼名]
+     * @return {Promise<Classroom[]>}      [教室列表]
+     */
+    changeClassByBuildName(name): Promise<Classroom[]> {
+      let url = this.assignDeviceUrl + 'ajax_change_building?buildingNum='+name;
+      return this.http
+              .get(url)
+              .toPromise()
+              .then(response => response.json().data.classroomList as Classroom[])
+              .catch(this.handleError);
+    }
+
+    assignClassroomDevice(type,id,assignModel,cameraList): Promise<any>{
+      var data = {
+        "buildingNum":assignModel.buildingNum,
+        "classroomNum":assignModel.classroomNum,
+        "computerTypeId":assignModel.computerTypeId,
+        "projectorTypeId":assignModel.projectorTypeId,
+        "raspberryTypeId":assignModel.raspberryTypeId,
+        "singlechipTypeId":assignModel.singlechipTypeId,
+        "cameraList":cameraList
+      }
+      if(type=='add'){
+         return this.http
+            .post(this.assignDeviceUrl,data,this.options)
+            .toPromise()
+            .then(response=>response.json().data)
+            .catch(this.handleError);
+      }else{
+        return this.http
+            .put(this.assignDeviceUrl+id,data,this.options)
+            .toPromise()
+            .then(response=>response.json().data)
+            .catch(this.handleError);
+      }
+      
+    }
+
+    getDeviceClassroomById(id):Promise<any>{
+      return this.http
+              .get(this.assignDeviceUrl+id)
+              .toPromise()
+              .then(response=>response.json().data)
+              .catch(this.handleError);
     }
     /**
      * [commonOperatFunc 公共方法]

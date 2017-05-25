@@ -6,7 +6,7 @@ import { Camera } from '../../../../entity/camera.entity';
 import { Computer } from '../../../../entity/computer.entity';
 import { Raspberry } from '../../../../entity/raspberry.entity';
 import { Projector } from '../../../../entity/projector.entity';
-import { Singlechip } from '../../../../entity/singlechips.entity';
+import { Singlechip } from '../../../../entity/singlechip.entity';
 import { DeviceService } from '../../../../service/device.service';
 
 import { nameValidator,numValidator } from '../../../../providers/validator';
