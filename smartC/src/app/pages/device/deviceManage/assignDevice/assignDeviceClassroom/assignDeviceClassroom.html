@@ -8,7 +8,8 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-gears"></i> 设备管理</a></li>
-            <li>编辑设备</li><li>分配设备</li><li>分配教室</li>
+            <li>编辑设备</li>
+            <li><a routerLink="/assignDevice">分配设备</a></li><li>分配教室</li>
         </ol>
     </section>
 
@@ -31,7 +32,7 @@
                             <div class="form-group">
                                 <label for="addBuilding" class="col-sm-2 control-label">教学楼</label>
                                 <div class="col-sm-3">
-                                    <select class="form-control" name="addBuilding" [(ngModel)]="assignModel.buildingNum" (ngModelChange)="changeClassroomByBuilding($event)">
+                                    <select class="form-control" name="addBuilding" [(ngModel)]="assignModel.buildingNum" (ngModelChange)="changeClassroomByBuilding($event)" [disabled]="operate=='edit'">
                                         <option *ngFor="let building of buildings" [value]="building.buildingNum">
                                             {{building.buildingNum}}
                                         </option>
@@ -41,7 +42,7 @@
                                 <label for="addClassroom" class="col-sm-1 control-label">教室号</label>
 
                                 <div class="col-sm-3">
-                                    <select class="form-control" name="addClassroom" [(ngModel)]="assignModel.classroomNum">
+                                    <select class="form-control" name="addClassroom" [(ngModel)]="assignModel.classroomNum" [disabled]="operate=='edit'">
                                         <option *ngFor="let classroom of classrooms" [value]="classroom.classroomNum">{{classroom.classroomNum}}</option>
                                     </select>
                                 </div>
@@ -93,20 +94,16 @@
                                 <label class="col-sm-2 control-label">摄像头型号</label>
 
                                 <div class="col-sm-3">
-                                    <select *ngIf="operate=='edit'" class="form-control camera-type" name="addCameraClassroom" [value]="item.cameraTypeId">
+                                    <select class="form-control camera-type" name="addCameraClassroom" [(value)]="item.cameraTypeId">
                                         <option *ngFor="let camera of cameras" [value]="camera.cameraTypeId">{{camera.cameraTypeName}}</option>
                             
-                                    </select>
-                                    <select *ngIf="operate=='add'" class="form-control camera-type" name="addCameraClassroom">
-                                        <option *ngFor="let camera of cameras" [value]="camera.cameraTypeId">{{camera.cameraTypeName}}</option>
                                     </select>
                                 </div>
                                 <label class="col-sm-1 control-label">名称</label>
                                 <span *ngIf="i<1" class="glyphicon glyphicon-plus cursor-hand" aria-hidden="true" (click)="addInput()"></span>
-                                <span *ngIf="(i==currentLen-1)&& i>=1" class="glyphicon glyphicon-remove cursor-hand" aria-hidden="true" (click)="removeInput(i,$event)"></span>
+                                <span *ngIf="i>=1" class="glyphicon glyphicon-remove cursor-hand" aria-hidden="true" (click)="removeInput(i,$event)"></span>
                                 <div class="col-sm-3">
-                                    <input *ngIf="operate=='edit'" type="text" [value]="item.cameraAngle" class="form-control camera-angle" name="addCameraAngleClassroom" placeholder="如：全景、正面、侧面">
-                                    <input *ngIf="operate=='add'" type="text"class="form-control camera-angle" name="addCameraAngleClassroom" placeholder="如：全景、正面、侧面" (value) = "inputs[i]">
+                                    <input type="text" [(value)]="item.cameraAngle" class="form-control camera-angle" name="addCameraAngleClassroom" placeholder="如：全景、正面、侧面">
                                 </div>
                             </div>  
                                   
@@ -115,7 +112,7 @@
                         <!-- /.box-body -->
                         <div class="box-footer">
                             <p class="label label-danger classroom-wrong-tip" [ngClass]="{'div-display': judgeTip}" style="margin-top: 5px;float: left;" >{{tip}}</p>
-                            <button type="button" class="btn btn-info pull-right" (click)="assignClassroomDevice()">添加教室</button>
+                            <button type="button" class="btn btn-info pull-right" (click)="assignClassroomDevice()">分配教室</button>
                         </div>
                         <!-- /.box-footer -->
                     </form>

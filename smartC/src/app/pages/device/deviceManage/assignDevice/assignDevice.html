@@ -98,7 +98,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <p class="label label-danger delete-wrong-tip" style="display:none;margin-top: 5px;float: left;" >教室不存在！</p>
+                <p class="label label-danger delete-wrong-tip" [ngClass]="{'div-display': judgeTip}" style="margin-top: 5px;float: left;" >{{tip}}</p>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                 <button type="submit" class="btn btn-primary" (click)="deleteDeviceClassroom()">删除</button>
             </div>

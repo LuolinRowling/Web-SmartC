@@ -172,6 +172,14 @@ export class DeviceService {
               .catch(this.handleError);
     }
 
+    /**
+     * [assignClassroomDevice 分配教学楼教室]
+     * @param  {[type]}       type        [add edit]
+     * @param  {[type]}       id          [教室设备ID]
+     * @param  {[type]}       assignModel [修改信息实体]
+     * @param  {[type]}       cameraList  [摄像头列表]
+     * @return {Promise<any>}             [description]
+     */
     assignClassroomDevice(type,id,assignModel,cameraList): Promise<any>{
       var data = {
         "buildingNum":assignModel.buildingNum,
@@ -197,13 +205,30 @@ export class DeviceService {
       }
       
     }
-
+    /**
+     * [getDeviceClassroomById 根据ID获取分配教室信息]
+     * @param  {[type]}       id [教室设备ID]
+     * @return {Promise<any>}    [description]
+     */
     getDeviceClassroomById(id):Promise<any>{
       return this.http
               .get(this.assignDeviceUrl+id)
               .toPromise()
               .then(response=>response.json().data)
               .catch(this.handleError);
+    }
+
+    /**
+     * [deleteDeviceClassroom 根据ID删除分配教室信息]
+     * @param  {[type]}       id [教室设备ID]
+     * @return {Promise<any>}    [description]
+     */
+    deleteDeviceClassroom(id):Promise<any>{
+      return this.http
+      .delete(this.assignDeviceUrl+id)
+      .toPromise()
+      .then(response => response.json().data)
+      .catch(this.handleError)
     }
     /**
      * [commonOperatFunc 公共方法]
