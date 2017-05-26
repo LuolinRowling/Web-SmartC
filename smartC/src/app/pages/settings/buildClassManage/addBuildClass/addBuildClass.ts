@@ -20,11 +20,10 @@ declare var $:any;
 export class addBuildClassPage implements OnInit{
 	
   	buildClasses : BuildClass[];
+
   	MaxInputs : number = 9;
-	InputsWrapper : any = $('#inputWrapper');
-	x : number = this.InputsWrapper.length;
+    currentLen : number = 0;
 	items : any[] = [];
-	inputs : any[] = [];
 
 	judgeTip: boolean = true;
 	judgeMsg: string[] = ['请输入20字以下教学楼！','请输入20字以下教室号！','教室已存在！',
@@ -93,14 +92,15 @@ export class addBuildClassPage implements OnInit{
 	 * [addInput 添加输入框]
 	 * @return {boolean} [description]
 	 */
-	addInput(): boolean{
-		console.log(this.x);
-		if(this.x <= this.MaxInputs) //max input box allowed
+	addInput(): void{
+
+	 	if(this.currentLen <= this.MaxInputs) //max input box allowed
 	    {
-	        this.x++;
-	        this.items.length = this.x;
-	    }
-	    return false;
+          this.items[this.currentLen] = {classroom:''};
+          this.currentLen ++;          
+          this.items.length = this.currentLen; 
+		}
+
 	}
 	/**
 	 * [removeInput 移除输入框]
@@ -109,11 +109,11 @@ export class addBuildClassPage implements OnInit{
 	 * @return {boolean}        [description]
 	 */
 	removeInput(i,_event): boolean{
-		if( this.x >= 1 ) {
-	        _event.toElement.parentElement.remove(); //remove text box
-	        //this.x--; 
-	    }
-	    return false;
+	 	if( this.currentLen>1 ) {
+            this.currentLen--;
+            this.items.splice(i,1);     
+        }
+        return false;
 	}
 
 

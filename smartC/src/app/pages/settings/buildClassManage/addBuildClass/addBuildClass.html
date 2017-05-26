@@ -50,7 +50,7 @@
                                     <label for="inputClassroom" class="col-sm-2 control-label">教室号</label>
                                     <span class="glyphicon glyphicon-remove" (click)="removeInput(i,$event)" aria-hidden="true"></span>
                                     <div class="col-sm-4">
-                                        <input type="text" name="classroom" class="form-control inputClassroom" placeholder="教室号" (value) = "inputs[i]">
+                                        <input type="text" name="classroom" class="form-control inputClassroom" placeholder="教室号" [(value)] = "item.classroom">
                                     </div>
                                 </div> 
                             </div>
