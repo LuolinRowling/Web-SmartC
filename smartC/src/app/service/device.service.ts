@@ -43,10 +43,10 @@ export class DeviceService {
      * @param {[type]} device  [设备类型]
      * @param {[type]} operate [操作类型 open close]
      */
-    operateDevice(id,device,operate): void{
+    operateDevice(id,device,operate): Promise<any>{
       
       let url = this.deviceUrl+id+'?device='+device+'&operation='+operate;
-      this.commonOperatGetFunc(url);
+      return this.commonOperatGetFunc(url);
     }
 
     /**
@@ -55,20 +55,20 @@ export class DeviceService {
      * @param {[type]} cameraId [摄像机id]
      * @param {[type]} operate  [操作类型 open close]
      */
-    operateCamera(deviceId,cameraId,code,operate): void{
+    operateCamera(deviceId,cameraId,code,operate): Promise<any>{
       //let url = '/ajax_edit_camera_status';
       let url = this.deviceUrl+'camera/'+cameraId+'?code='+code+'&did='+deviceId+'&operation='+operate;
-      this.commonOperatGetFunc(url);
+      return this.commonOperatGetFunc(url);
     }
 
     /**
      * [operateAllDevice 一键操作所有设备]
      * @param {[type]} operate [操作类型 open close]
      */
-    operateAllDevice(operate): void{
+    operateAllDevice(operate): Promise<any>{
       //let url = '/ajax_edit_all_device_status';
       let url = this.deviceUrl+'all?operation='+operate;
-      this.commonOperatGetFunc(url);
+      return this.commonOperatGetFunc(url);
     }
 
     getDeviceInfoById(id): Promise<Device>{
@@ -249,9 +249,9 @@ export class DeviceService {
      * @param {[type]} url  [访问地址]
      * @param {[type]} data [传输数据]
      */
-    commonOperatGetFunc(url): void{
+    commonOperatGetFunc(url): Promise<any>{
       //console.log(data);
-      this.http
+      return this.http
         .get(url)
         .toPromise()
         .then(res => res.json().data)

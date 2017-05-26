@@ -36,6 +36,7 @@ import { VideoService } from './service/video.service';
 import { MessageService } from './service/message.service';
 import { RoleService } from './service/role.service';
 import { BuildClassService } from './service/buildClass.service';
+import { ToastService } from './service/toast.service';
 
 import { Constant } from './common/constant'
 
@@ -77,7 +78,8 @@ import { Constant } from './common/constant'
     MessageService,
     RoleService,
     BuildClassService,
-    Constant
+    Constant,
+    ToastService
   ],
   bootstrap: [AppComponent]
 })

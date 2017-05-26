@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewContainerRef } from '@angular/core';
 
 import { Device } from '../../../entity/device.entity';
 import { Camera } from '../../../entity/camera.entity';
 import { DeviceService } from '../../../service/device.service';
+
+import { ToastService } from '../../../service/toast.service';
+import { ToastsManager,Toast } from 'ng2-toastr/ng2-toastr';
 
 // declare var DataTable:any;
 // declare var $:any;
@@ -13,34 +16,44 @@ import { DeviceService } from '../../../service/device.service';
 })
 export class deviceMonitorPage implements OnInit{
   	data : Device[];	
-  	public filterQuery = "";
-    public rowsOnPage = 10;
-    public sortBy = "email";
-    public sortOrder = "asc";
+  	device : Device;
 
   	constructor(
-  		private deviceService: DeviceService) {
+      private toastr: ToastsManager, 
+      private vcr: ViewContainerRef,
+      private deviceService: DeviceService,
+  		private toastService: ToastService) {
+      this.toastr.setRootViewContainerRef(vcr);
   	} 
   	
+
   	/**
   	 * [getDevices 获取设备列表]
   	 */
   	getDevices(): void {
   		this.deviceService.getDevices().then(devices => {
 			  this.data = devices;
-        console.log(this.data);
+        //console.log(this.data);
   		});
   	}
   	/**
   	 * [operateDevice 操作设备状态]
+     * @param {[type]} num     [数据编号] 
   	 * @param {[type]} id      [设备ID]
   	 * @param {[type]} device  [设备 computer projector]
   	 * @param {[type]} operate [操作 open close]
   	 * @param {[type]} _event  [点击事件]
   	 */
-  	operateDevice(id,device,operate): void{
-  		console.log(device);
-  		this.deviceService.operateDevice(id,device,operate);
+  	operateDevice(num,id,device,operate): void{
+      console.log(num);
+  		this.deviceService.operateDevice(id,device,operate).then(data=>{
+        console.log(data);
+        let message = data.wSocketMessage;
+        //this.device = data.deviceInfo;
+        this.data[num] = data.deviceInfo;
+        this.handleMessage(message.judge,data.deviceInfo.buildingNum+data.deviceInfo.classroomNum,message.message);
+
+      });
   	}
   	/**
   	 * [operateCamera 操作摄像头状态]
@@ -51,7 +64,9 @@ export class deviceMonitorPage implements OnInit{
   	 */
   	operateCamera(id,cameraId,code,operate): void{
       console.log(code);
-  		this.deviceService.operateCamera(id,cameraId,code+1,operate);
+  		this.deviceService.operateCamera(id,cameraId,code+1,operate).then(data=>{
+        console.log(this.data);
+      });
   	}
   	
   	/**
@@ -59,9 +74,29 @@ export class deviceMonitorPage implements OnInit{
   	 * @param {[type]} operate [description]
   	 */
   	editAllDevice(operate): void{
-  		this.deviceService.operateAllDevice(operate);
+  		this.deviceService.operateAllDevice(operate).then(data=>{
+        this.data = data.deviceInfoList
+        console.log(data);
+      });
   	}
 
+    handleMessage(type,title,message){
+      console.log(type,title,message);
+      switch (type) {
+        case "success":
+          this.toastService.showSuccess(this.toastr,title,message);
+          break;
+        case "fail":
+          this.toastService.showError(this.toastr,title,message);
+          break;
+        case "offline":
+          this.toastService.showWarning(this.toastr,title,message);
+          break;
+        default:
+          // code...
+          break;
+      }
+    }
   	ngOnInit(): void{
   		this.getDevices();
   	}
