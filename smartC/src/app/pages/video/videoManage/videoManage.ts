@@ -82,15 +82,16 @@ export class videoManagePage implements OnInit{
     let buildClass = device.buildingNum+device.classroomNum;
 		this.videoService.operateStream(id,operate).then(data=>{
       console.log(data);
+      let message = data.wSocketMessage;
       if(operate.indexOf('broadcast')!=-1){//广播
         if(data.judge==0){
           this.data = data.deviceInfoList;
 
-          this.handleMessage('success',buildClass,'发布广播成功！');
+          this.handleMessage(message.judge,buildClass,message.message);
         }else
-          this.handleMessage('fail',buildClass,'发布广播失败！');
+          this.handleMessage('fail',buildClass,message.message);
       }else{//其他
-        let message = data.wSocketMessage;
+        
         //更改状态
         for(let i=0;i<this.data.length;i++){
           if(this.data[i].id == id){
