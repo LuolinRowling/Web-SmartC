@@ -40,48 +40,7 @@ export class AppComponent implements OnInit{
     }
   }
 
-  getMessage(t): void{
-    console.log(t);
-    this.messageService.getMessages(this.user.id).then(messages=>{
-      this.messages = messages;
-    })
-  }
 
-  showSuccess(title,message) {
-    this.toastr.success('You are awesome!', 'Success!')
-      .then((toast: Toast) => {
-        setTimeout(() => {
-            this.toastr.dismissToast(toast);
-        }, this.dismissTime);
-      });
-  }
-
-  showError(title,message) {
-    this.toastr.error(message, title)
-      .then((toast: Toast) => {
-        setTimeout(() => {
-            this.toastr.dismissToast(toast);
-        }, this.dismissTime);
-      });
-  }
-
-  showWarning(title,message) {
-    this.toastr.warning(message, title)
-      .then((toast: Toast) => {
-        setTimeout(() => {
-            this.toastr.dismissToast(toast);
-        }, this.dismissTime);
-      });
-  }
-
-
-  ngOnInit(): void{
-    //this.showSuccess();
-    // let timer = Observable.timer(2000,5000);
-    // timer.subscribe(t=> {
-    //     this.getMessage(t);
-    // });
-
-  }
+  ngOnInit(): void{}
 
 }

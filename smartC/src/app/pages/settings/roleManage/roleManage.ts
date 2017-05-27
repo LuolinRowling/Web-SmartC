@@ -27,7 +27,7 @@ export class roleManagePage implements OnInit{
 	modalOption = {
     type : 'add',
     name : '添加角色',
-    role : {}
+    role : {r_id : null,r_name : '',p_ids : [],p_idsStr : ''}
   }
   //tree
   setting :any = {
@@ -127,7 +127,7 @@ export class roleManagePage implements OnInit{
             node.pId = data[i]['parent_id'];
             node.name =data[i]['name'];
             node.icon = data[i]['icon'];
-            let p_ids = this.modalOption.role['p_ids'];
+            let p_ids = this.modalOption.role.p_ids;
             if(p_ids.length>0){
                 if($.inArray(node.id,p_ids)!=-1){
                     node.checked = true;
@@ -144,7 +144,7 @@ export class roleManagePage implements OnInit{
     getAddTree(): void{
       //如果树不为空，则不获取
       if(this.zNodes.length == 0){
-        this.modalOption.role = {};
+        this.modalOption.role = {r_id : null,r_name : '',p_ids : [],p_idsStr : ''};
         this.roleService.getPermissions().then(data => {
           
           for (let i=0;i<data.length;i++){
@@ -208,7 +208,7 @@ export class roleManagePage implements OnInit{
      */
     addRole(): void{
       this.getPermissionCheckedAll();
-      let rname = this.modalOption.role['r_name'];
+      let rname = this.modalOption.role.r_name;
       //判断用户输入角色名
       if(this.validateInput()){
         this.roleService.addRole(rname,this.permissionNodes).then(data=>{
@@ -233,7 +233,7 @@ export class roleManagePage implements OnInit{
     }
     editRole(): void{
       this.getPermissionCheckedAll();
-      let rname = this.modalOption.role['r_name'];
+      let rname = this.modalOption.role.r_name;
       let judge = true;
       //判断角色名有无修改
       if(rname == this.oldRname){
@@ -291,7 +291,7 @@ export class roleManagePage implements OnInit{
      * @return {boolean} [description]
      */
     validateInput(): boolean{
-      let rname = this.modalOption.role['r_name'];
+      let rname = this.modalOption.role.r_name;
       let re = /^[a-zA-Z0-9_\u4e00-\u9fa5]{1,20}$/;
       if(!re.test(rname)){
         this.judgeTip.addedit = false;

@@ -59,7 +59,7 @@
                     <!-- Menu toggle button -->
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" onclick="getMessageListCenter()">
                         <i class="fa fa-bell-o"></i>
-                        <span class="label label-warning" id="messageLength"> {{messageSize}} </span>
+                        <span class="label label-warning" id="messageLength"></span>
                     </a>
                     <ul class="dropdown-menu">
                         <li class="header" id="messageHeader">您有 0 条通知</li>
@@ -122,7 +122,7 @@
                         <li class="user-header">
                             <img src="../../assets/dist/img/user9-160x160.jpg" class="img-circle" alt="User Image">
                             <p>
-                                {{user.username}} - {{user.rname}}
+                                {{user.username}} - {{user.role.r_name}}
                                 <small>北京大学</small>
                             </p>
                         </li>
