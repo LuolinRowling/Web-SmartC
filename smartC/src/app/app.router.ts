@@ -10,6 +10,7 @@ import { videoManagePage } from './pages/video/videoManage/videoManage';
 import { videoLivePage } from './pages/video/videoLive/videoLive';
 import { userManagePage } from './pages/settings/userManage/userManage';
 import { roleManagePage } from './pages/settings/roleManage/roleManage';
+import { messageManagePage } from './pages/settings/messageManage/messageManage';
 import { buildClassManagePage } from './pages/settings/buildClassManage/buildClassManage';
 import { addBuildClassPage } from './pages/settings/buildClassManage/addBuildClass/addBuildClass';
 
@@ -28,5 +29,6 @@ export const MAINMENU_ROUTES = [
     { path: 'deviceInfo', component: deviceInfoPage },
     { path: 'assignDevice', component: assignDevicePage },
     { path: 'assignDeviceClassroom', component: assignDeviceClassroomPage },
+    { path: 'messageManage', component: messageManagePage },
 ];
 //export const CONST_ROUTING = RouterModule.forRoot(MAINMENU_ROUTES);

@@ -26,6 +26,7 @@ import { videoManagePage } from './pages/video/videoManage/videoManage';
 import { videoLivePage } from './pages/video/videoLive/videoLive';
 import { userManagePage } from './pages/settings/userManage/userManage';
 import { roleManagePage } from './pages/settings/roleManage/roleManage';
+import { messageManagePage } from './pages/settings/messageManage/messageManage';
 import { buildClassManagePage } from './pages/settings/buildClassManage/buildClassManage';
 import { addBuildClassPage } from './pages/settings/buildClassManage/addBuildClass/addBuildClass';
 
@@ -55,7 +56,8 @@ import { Constant } from './common/constant'
     addBuildClassPage,
     deviceInfoPage,
     assignDevicePage,
-    assignDeviceClassroomPage
+    assignDeviceClassroomPage,
+    messageManagePage
   ],
   imports: [
     BrowserModule,

@@ -5,26 +5,25 @@ import { Message } from '../entity/message.entity'
 
 import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
+import { Constant } from '../common/constant';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 
 export class MessageService {
+	private messageUrl : string;
 	private headers = new Headers({'Content-Type': 'application/json'});
 
-	constructor(private http: Http) { }
+	constructor(private constant : Constant,private http: Http) { 
+		this.messageUrl = constant.URL+'messages/';
+	}
 
-	getMessages(userId): Promise<Message[]>{
-		let url = 'api/messages';
-		//let url = '/login';
-	    let data = {
-	    	"userId":userId
-	    }
+	getMessages(): Promise<Message[]>{
+		
 	    return this.http      
-	      .post(url, JSON.stringify(data), {headers: this.headers})
-	      //.get(url)
+	      .get(this.messageUrl+'allList/')
 	      .toPromise()
-	      .then(response => response.json().data.data.messageListCenter as Message[])
+	      .then(response => response.json().data.list as Message[])
 	      .catch(this.handleError);
 	}
 	private handleError(error: any): Promise<any> {
