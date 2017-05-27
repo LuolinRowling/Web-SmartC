@@ -80,6 +80,12 @@ export class deviceMonitorPage implements OnInit{
       });
   	}
 
+    /**
+     * [handleMessage 处理消息]
+     * @param {[type]} type    [类型]
+     * @param {[type]} title   [标题]
+     * @param {[type]} message [消息内容]
+     */
     handleMessage(type,title,message){
       console.log(type,title,message);
       switch (type) {

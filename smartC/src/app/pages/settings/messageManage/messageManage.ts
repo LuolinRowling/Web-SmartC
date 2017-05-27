@@ -13,7 +13,7 @@ import { MessageService } from '../../../service/message.service';
   templateUrl: './messageManage.html'
 })
 export class messageManagePage implements OnInit{
-	messages : Message[];
+	data : Message[];
 
   	constructor(	  	
   		private messageSevice: MessageService,
@@ -26,7 +26,7 @@ export class messageManagePage implements OnInit{
   	getMessages(): void{
   		this.messageSevice.getMessages().then(data=>{
   			//console.log(data);
-  			this.messages = data;
+  			this.data = data;
   			
   		})
   	}

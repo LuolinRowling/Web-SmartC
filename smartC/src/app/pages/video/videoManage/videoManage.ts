@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Device } from '../../../entity/device.entity';
@@ -9,6 +9,9 @@ import { ZNode } from '../../../entity/znode.entity';
 
 import { DeviceService } from '../../../service/device.service';
 import { VideoService } from '../../../service/video.service';
+import { ToastService } from '../../../service/toast.service';
+
+import { ToastsManager,Toast } from 'ng2-toastr/ng2-toastr';
 
 import 'ztree';
 declare var $:any;
@@ -48,9 +51,13 @@ export class videoManagePage implements OnInit{
 	code : any;
 
 	constructor(
+    private toastr: ToastsManager, 
+    private vcr: ViewContainerRef,
+    private toastService: ToastService,
 		private deviceService: DeviceService,
 		private videoService: VideoService,
     private router: Router) {
+    this.toastr.setRootViewContainerRef(vcr);
 	}
 
 	/**
@@ -70,9 +77,30 @@ export class videoManagePage implements OnInit{
 	 * @param {[type]} _event  [点击事件]
 	 */
 	operateStream(id,operate,code,_event): void{
-		console.log(_event);
-    this.changeOtherButton(id,code);
-		this.videoService.operateStream(id,operate);
+		//this.changeOtherButton(id,code);
+    let device:Device = this.findDeviceById(id);
+    let buildClass = device.buildingNum+device.classroomNum;
+		this.videoService.operateStream(id,operate).then(data=>{
+      console.log(data);
+      if(operate.indexOf('broadcast')!=-1){//广播
+        if(data.judge==0){
+          this.data = data.deviceInfoList;
+
+          this.handleMessage('success',buildClass,'发布广播成功！');
+        }else
+          this.handleMessage('fail',buildClass,'发布广播失败！');
+      }else{//其他
+        let message = data.wSocketMessage;
+        //更改状态
+        for(let i=0;i<this.data.length;i++){
+          if(this.data[i].id == id){
+            this.data[i] = data.deviceInfo;
+            break;
+          }
+        }
+        this.handleMessage(message.judge,buildClass,message.message);
+      }
+    });
 	}
 
 	/**
@@ -210,7 +238,7 @@ export class videoManagePage implements OnInit{
    * [startPullOperate 单个教室拉流]
    */
   startPullOperate(): void{
-    console.log(this.pullId)
+    console.log(this.pullId);
     if((this.buildModel.length==0) || (this.classModel.length==0) ){
       this.judgeRight = false;
       $('#modalStartPullBtn').removeAttr('data-dismiss');
@@ -218,8 +246,17 @@ export class videoManagePage implements OnInit{
       $('#modalStartPullBtn').attr('data-dismiss','modal');
       this.videoService.startPullOperate(this.buildModel,this.classModel,this.pullId).then(
         data=>{
-          this.changeOtherButton(this.pullId,4);
-          //location.reload();
+          //this.changeOtherButton(this.pullId,4);
+          let message = data.wSocketMessage;
+          let buildClass = data.deviceInfo.buildingNum+data.deviceInfo.classroomNum;
+          //更改状态
+          for(let i=0;i<this.data.length;i++){
+            if(this.data[i].id == this.pullId){
+              this.data[i] = data.deviceInfo;
+              break;
+            }
+          }
+          this.handleMessage(message.judge,buildClass,message.message);
         });
     }
   }
@@ -233,6 +270,34 @@ export class videoManagePage implements OnInit{
     this.data.find(x => x.id === id).raspberryStreamStatus = code;
 
   }
+
+  findDeviceById(id): Device{
+    return this.data.find(x => x.id === id);
+  }
+
+  /**
+   * [handleMessage 处理消息]
+   * @param {[type]} type    [类型]
+   * @param {[type]} title   [标题]
+   * @param {[type]} message [消息内容]
+   */
+  handleMessage(type,title,message){
+      console.log(type,title,message);
+      switch (type) {
+        case "success":
+          this.toastService.showSuccess(this.toastr,title,message);
+          break;
+        case "fail":
+          this.toastService.showError(this.toastr,title,message);
+          break;
+        case "offline":
+          this.toastService.showWarning(this.toastr,title,message);
+          break;
+        default:
+          // code...
+          break;
+      }
+    }
 	ngOnInit(): void{
     this.getDevices();
 	}

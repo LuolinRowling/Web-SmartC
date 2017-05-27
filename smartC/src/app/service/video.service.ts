@@ -87,14 +87,14 @@ export class VideoService {
      * @param {[type]} id      [教室设备列表id]
      * @param {[type]} operate [操作类型 start_push|broadcast stop_push|pull|broadcast]
      */
-    operateStream(id,operate): void{
+    operateStream(id,operate): Promise<any>{
       //let url = '/ajax_edit_stream_status';
       let url = this.videoUrl+id+'?operation='+operate;
       let data = {
         "did":id,
         "operation":operate
       }
-      this.commonOperateGetFunc(url);
+      return this.commonOperateGetFunc(url);
     }
 
     /**

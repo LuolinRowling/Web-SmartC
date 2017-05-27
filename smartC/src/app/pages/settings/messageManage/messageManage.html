@@ -22,17 +22,17 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <table id="example2" class="table table-bordered table-hover">
+                            <table id="example2" class="table table-bordered table-hover" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="5">
                                 <thead>
                                 <tr>
-                                    <th>地点</th>
-                                    <th>时间</th>
+                                    <th><mfDefaultSorter by="buildClass">地点</mfDefaultSorter></th>
+                                    <th><mfDefaultSorter by="nowTime">时间</mfDefaultSorter></th>
                                     <th>内容</th>
                                     <th>来源</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let message of messages">
+                                    <tr *ngFor="let message of mf.data">
                                         <td>{{message.buildClass}}</td>
                                         <td>{{message.nowTime}}</td>
                                         <td>{{message.message}}</td>
@@ -45,10 +45,9 @@
                                 </tbody>
                                 <tfoot>
                                 <tr>
-                                    <th>地点</th>
-                                    <th>时间</th>
-                                    <th>内容</th>
-                                    <th>来源</th>
+                                    <td colspan="7">
+                                        <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                                    </td>
                                 </tr>
                                 </tfoot>
                             </table>
