@@ -120,6 +120,10 @@ export class videoManagePage implements OnInit{
 			data => {
 				this.classrooms = data.classroomList;  				
 				this.buildings = data.buildingList;
+        if(this.buildings.length>0&&this.classrooms.length>0){
+          this.buildModel = this.buildings[0].buildingNum;
+          this.classModel = this.classrooms[0].classroomNum;
+        }
 				if(from == 'multiple'){
 					//获取可以拉流的教学楼教室列表
 					this.getMultiPullStreamTree();
@@ -133,7 +137,12 @@ export class videoManagePage implements OnInit{
 	 */
 	changeClassroomByBuilding(_event): void{
 		console.log(_event);
-		this.videoService.changeClassByBuildName(_event).then(classrooms => this.classrooms = classrooms);
+		this.videoService.changeClassByBuildName(_event).then(classrooms => {
+      this.classrooms = classrooms;
+      if(classrooms.length>0){
+        this.classModel = this.classrooms[0].classroomNum;
+      }
+    });
 	}
 
   /**
