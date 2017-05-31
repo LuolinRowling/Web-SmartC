@@ -207,7 +207,7 @@ function(e) {
 	b.repo = function() {
 		//var a = "jwplayer/";
 		//var a = "http://101.200.155.137/resource/js/pages/jwplayer/";
-		var a = "./assets/js/jwplayer/";
+		var a = "./assets/jwplayer/";
 		/*rabtor20164-12修改,jwplayer为本文件所在目录名称，使用时可修改jwplayer文件夹的绝对路径*/
 		try {
 			b.isHTTPS() && (a = a.replace("http://", "https://ssl."))
