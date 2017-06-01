@@ -6,6 +6,7 @@ import { Classroom } from '../../../entity/classroom.entity';
 import { Building } from '../../../entity/building.entity';
 import { BuildClass } from '../../../entity/buildclass.entity';
 import { ZNode } from '../../../entity/znode.entity';
+import { Constant } from '../../../common/constant';
 
 import { DeviceService } from '../../../service/device.service';
 import { VideoService } from '../../../service/video.service';
@@ -56,7 +57,8 @@ export class videoManagePage implements OnInit{
     private toastService: ToastService,
 		private deviceService: DeviceService,
 		private videoService: VideoService,
-    private router: Router) {
+    private router: Router,
+    private constant: Constant) {
     this.toastr.setRootViewContainerRef(vcr);
 	}
 
@@ -77,6 +79,8 @@ export class videoManagePage implements OnInit{
 	 * @param {[type]} _event  [点击事件]
 	 */
 	operateStream(id,operate,code,_event): void{
+    console.log(_event);
+    this.clickButtonChange(_event);
 		//this.changeOtherButton(id,code);
     let device:Device = this.findDeviceById(id);
     let buildClass = device.buildingNum+device.classroomNum;
@@ -292,22 +296,35 @@ export class videoManagePage implements OnInit{
    * @param {[type]} message [消息内容]
    */
   handleMessage(type,title,message){
-      console.log(type,title,message);
-      switch (type) {
-        case "success":
-          this.toastService.showSuccess(this.toastr,title,message);
-          break;
-        case "fail":
-          this.toastService.showError(this.toastr,title,message);
-          break;
-        case "offline":
-          this.toastService.showWarning(this.toastr,title,message);
-          break;
-        default:
-          // code...
-          break;
-      }
+    console.log(type,title,message);
+    switch (type) {
+      case "success":
+        this.toastService.showSuccess(this.toastr,title,message);
+        break;
+      case "fail":
+        this.toastService.showError(this.toastr,title,message);
+        break;
+      case "offline":
+        this.toastService.showWarning(this.toastr,title,message);
+        break;
+      default:
+        // code...
+        break;
     }
+  }
+  /**
+   * [clickButtonChange 禁止多次点击]
+   * @param {[type]} _event [点击事件]
+   */
+  clickButtonChange(_event): void{
+    let buttonText = _event.toElement.textContent;
+    _event.toElement.disabled = true;
+    _event.toElement.textContent = "点击成功，5s后恢复";
+    setTimeout(function(){
+      _event.toElement.textContent = buttonText;
+      _event.toElement.disabled = false;    
+    },this.constant.WaitTime);
+  }
 	ngOnInit(): void{
     this.getDevices();
 	}

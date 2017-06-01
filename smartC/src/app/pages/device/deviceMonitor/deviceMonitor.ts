@@ -2,6 +2,8 @@ import { Component, OnInit,ViewContainerRef } from '@angular/core';
 
 import { Device } from '../../../entity/device.entity';
 import { Camera } from '../../../entity/camera.entity';
+import { Constant } from '../../../common/constant';
+
 import { DeviceService } from '../../../service/device.service';
 
 import { ToastService } from '../../../service/toast.service';
@@ -22,7 +24,8 @@ export class deviceMonitorPage implements OnInit{
       private toastr: ToastsManager, 
       private vcr: ViewContainerRef,
       private deviceService: DeviceService,
-  		private toastService: ToastService) {
+  		private toastService: ToastService,
+      private constant: Constant) {
       this.toastr.setRootViewContainerRef(vcr);
   	} 
   	
@@ -44,8 +47,9 @@ export class deviceMonitorPage implements OnInit{
   	 * @param {[type]} operate [操作 open close]
   	 * @param {[type]} _event  [点击事件]
   	 */
-  	operateDevice(num,id,device,operate): void{
+  	operateDevice(num,id,device,operate,_event): void{
       console.log(num);
+      this.clickButtonChange(_event);
   		this.deviceService.operateDevice(id,device,operate).then(data=>{
         console.log(data);
         let message = data.wSocketMessage;
@@ -62,8 +66,9 @@ export class deviceMonitorPage implements OnInit{
   	 * @param {[type]} code     [摄像头code]
   	 * @param {[type]} operate  [操作 open close]
   	 */
-  	operateCamera(id,cameraId,code,operate): void{
+  	operateCamera(id,cameraId,code,operate,_event): void{
       console.log(code);
+      this.clickButtonChange(_event);
   		this.deviceService.operateCamera(id,cameraId,code+1,operate).then(data=>{
         console.log(this.data);
       });
@@ -73,7 +78,8 @@ export class deviceMonitorPage implements OnInit{
   	 * [editAllDevice 操作全部设备]
   	 * @param {[type]} operate [description]
   	 */
-  	editAllDevice(operate): void{
+  	editAllDevice(operate,_event): void{
+      this.clickButtonChange(_event);
   		this.deviceService.operateAllDevice(operate).then(data=>{
         this.data = data.deviceInfoList
         console.log(data);
@@ -102,6 +108,19 @@ export class deviceMonitorPage implements OnInit{
           // code...
           break;
       }
+    }
+    /**
+     * [clickButtonChange 禁止多次点击]
+     * @param {[type]} _event [点击事件]
+     */
+    clickButtonChange(_event): void{
+      let buttonText = _event.toElement.textContent;
+      _event.toElement.disabled = true;
+      _event.toElement.textContent = "点击成功，5s后恢复";
+      setTimeout(function(){
+        _event.toElement.textContent = buttonText;
+        _event.toElement.disabled = false;    
+      },this.constant.WaitTime);
     }
   	ngOnInit(): void{
   		this.getDevices();

@@ -48,6 +48,18 @@
                                     <td>{{device.projectorType.projectorTypeName}}</td>
                                     <td>
                                         类型：{{device.raspberryType.raspberryTypeName}}<br/>
+                                            <div *ngIf="device.raspberryStreamStatus==0" >
+                                                状态：离线
+                                                <span class="label label-success cursor-hand" (click)="openRaspberry(device.id)">开启</span>
+                                            </div>
+                                            <p *ngIf="device.raspberryStreamStatus==1" >状态：在线(空闲)</p>
+                                            <div *ngIf="device.raspberryStreamStatus==2" >
+                                                状态：异常
+                                                <span class="label label-success cursor-hand" (click)="openRaspberry(device.id)">开启</span>
+                                            </div>
+                                            <p *ngIf="device.raspberryStreamStatus==3" >状态：正在推流</p>
+                                            <p *ngIf="device.raspberryStreamStatus==4" >状态：正在拉流</p>
+                                            <p *ngIf="device.raspberryStreamStatus==5" >状态：正在广播</p>
                                     </td>
                                     <td>{{device.singlechipType.singlechipTypeName}}</td>
                                     <td>

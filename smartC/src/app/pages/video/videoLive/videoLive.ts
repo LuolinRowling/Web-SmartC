@@ -51,7 +51,7 @@ export class videoLivePage implements OnInit {
 		this.videoService.getDeviceInfoById(this.id).then(device => {
 			this.device = device;
 			console.log(this.device);
-			this.getLineVedio('rtmp://play.bcelive.com/live/lss-gm4k64ts8y7kevfi');
+			this.getLineVedio('http://play.bcelive.com/live/lss-gm4k64ts8y7kevfi.flv');
 			this.cameras = device.cameraList;
 			if(this.address == null&&this.cameras.length>0){
 				//this.getPullAddress(this.cameras[0].cameraId,0)

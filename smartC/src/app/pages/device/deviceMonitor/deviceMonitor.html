@@ -20,8 +20,8 @@
                     <div class="box">
                         <div class="box-header">
                             <h3 class="box-title">远程列表 </h3>
-                            <a class="btn btn-warning btn-flat pull-right" (click)="editAllDevice('open')">一键开启</a>
-                            <a class="btn btn-primary btn-flat pull-right" style="margin-right: 10px" (click)="editAllDevice('close')">一键关闭</a>
+                            <a class="btn btn-warning btn-flat pull-right" (click)="editAllDevice('open',$event)">一键开启</a>
+                            <a class="btn btn-primary btn-flat pull-right" style="margin-right: 10px" (click)="editAllDevice('close',$event)">一键关闭</a>
                             <button type="button" class="btn btn-success btn-xs col">开启</button>当前设备离线&nbsp;
                             <button type="button" class="btn btn-success btn-xs col">关闭</button>当前设备在线&nbsp;
                             <button type="button" class="btn btn-danger btn-xs col">异常</button>当前设备异常&nbsp;
@@ -57,22 +57,22 @@
                                         </td>
                                         <td>{{device.buildingNum}} {{device.classroomNum}}</td>
                                         <td>
-                                            <button [disabled]="device.raspberryStatus!=1" *ngIf="device.computerStatus==0" type="button" class="btn btn-success btn-xs col" (click)="operateDevice(j,device.id,'computer','open')">开启</button>
-                                            <button [disabled]="device.raspberryStatus!=1" *ngIf="device.computerStatus==1" type="button" class="btn btn-success btn-xs col" (click)="operateDevice(j,device.id,'computer','close')">关闭</button>
-                                            <button [disabled]="device.raspberryStatus!=1" *ngIf="device.computerStatus==2" type="button" class="btn btn-danger btn-xs col" (click)="operateDevice(j,device.id,'computer','open')">异常</button>
+                                            <button [disabled]="device.raspberryStatus!=1" *ngIf="device.computerStatus==0" type="button" class="btn btn-success btn-xs col" (click)="operateDevice(j,device.id,'computer','open',$event)">开启</button>
+                                            <button [disabled]="device.raspberryStatus!=1" *ngIf="device.computerStatus==1" type="button" class="btn btn-success btn-xs col" (click)="operateDevice(j,device.id,'computer','close',$event)">关闭</button>
+                                            <button [disabled]="device.raspberryStatus!=1" *ngIf="device.computerStatus==2" type="button" class="btn btn-danger btn-xs col" (click)="operateDevice(j,device.id,'computer','open',$event)">异常</button>
                                         </td>
                                         <td>
                                             <span *ngFor="let camera of device.cameraList ; let i = index">
                                                 {{camera.cameraAngle}}:
                                                 <button [disabled]="device.raspberryStatus!=1" *ngIf="camera.cameraStatus==0" type="button" class="btn btn-success btn-xs col" (click)="operateCamera(device.id,camera.cameraId,i,'open')">开启</button>
-                                                <button [disabled]="device.raspberryStatus!=1" *ngIf="camera.cameraStatus==1" type="button" class="btn btn-success btn-xs col" (click)="operateCamera(device.id,camera.cameraId,i,'close')">关闭</button>
-                                                <button [disabled]="device.raspberryStatus!=1" *ngIf="camera.cameraStatus==2" type="button" class="btn btn-danger btn-xs col" (click)="operateCamera(device.id,camera.cameraId,i,'open')">异常</button>
+                                                <button [disabled]="device.raspberryStatus!=1" *ngIf="camera.cameraStatus==1" type="button" class="btn btn-success btn-xs col" (click)="operateCamera(device.id,camera.cameraId,i,'close',$event)">关闭</button>
+                                                <button [disabled]="device.raspberryStatus!=1" *ngIf="camera.cameraStatus==2" type="button" class="btn btn-danger btn-xs col" (click)="operateCamera(device.id,camera.cameraId,i,'open',$event)">异常</button>
                                             </span>
                                         </td>
                                         <td>
-                                            <button [disabled]="device.raspberryStatus!=1" *ngIf="device.projectorStatus==0" type="button" class="btn btn-success btn-xs col" (click)="operateDevice(j,device.id,'projector','open')">开启</button>
-                                            <button [disabled]="device.raspberryStatus!=1" *ngIf="device.projectorStatus==1" type="button" class="btn btn-success btn-xs col" (click)="operateDevice(j,device.id,'projector','close')">关闭</button>
-                                           <button [disabled]="device.raspberryStatus!=1" *ngIf="device.projectorStatus==2" type="button" class="btn btn-danger btn-xs col" (click)="operateDevice(j,device.id,'projector','open')">异常</button>
+                                            <button [disabled]="device.raspberryStatus!=1" *ngIf="device.projectorStatus==0" type="button" class="btn btn-success btn-xs col" (click)="operateDevice(j,device.id,'projector','open',$event)">开启</button>
+                                            <button [disabled]="device.raspberryStatus!=1" *ngIf="device.projectorStatus==1" type="button" class="btn btn-success btn-xs col" (click)="operateDevice(j,device.id,'projector','close',$event)">关闭</button>
+                                           <button [disabled]="device.raspberryStatus!=1" *ngIf="device.projectorStatus==2" type="button" class="btn btn-danger btn-xs col" (click)="operateDevice(j,device.id,'projector','open',$event)">异常</button>
                                         </td>
                                         <td>
                                             <p *ngIf="device.raspberryStatus==0" >离线</p>
@@ -80,8 +80,8 @@
                                             <p *ngIf="device.raspberryStatus==2" >异常</p>
                                         </td>
                                         <td>
-                                            <button [disabled]="device.raspberryStatus!=1" type="button" class="btn btn-success btn-xs col" (click)="operateDevice(j,device.id,'','open')">开启全部</button>&nbsp;
-                                            <button [disabled]="device.raspberryStatus!=1" type="button" class="btn btn-success btn-xs col" (click)="operateDevice(j,device.id,'','close')">关闭全部</button>
+                                            <button [disabled]="device.raspberryStatus!=1" type="button" class="btn btn-success btn-xs col" (click)="operateDevice(j,device.id,'','open',$event)">开启全部</button>&nbsp;
+                                            <button [disabled]="device.raspberryStatus!=1" type="button" class="btn btn-success btn-xs col" (click)="operateDevice(j,device.id,'','close',$event)">关闭全部</button>
                                         </td>
                                     </tr>
                                 </tbody>

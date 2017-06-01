@@ -152,8 +152,8 @@
             <div class="modal-footer">
                 <p class="label label-danger delete-wrong-tip" [ngClass]="{'div-display': judgeRight}" style="margin-top: 5px;float: left;" >请选择教学楼教室！</p>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary" [ngClass]="{'div-display': !judgeFrom}" (click)="startPullOperate()" id="modalStartPullBtn">开始拉流</button>
-                <button type="button" class="btn btn-primary" [ngClass]="{'div-display': judgeFrom}"  (click)="GetCheckedAll()">开始拉流</button>
+                <button type="button" class="btn btn-primary" [ngClass]="{'div-display': !judgeFrom}" (click)="startPullOperate()" id="modalStartPullBtn" data-dismiss="modal">开始拉流</button>
+                <button type="button" class="btn btn-primary" [ngClass]="{'div-display': judgeFrom}"  (click)="GetCheckedAll()" data-dismiss="modal">开始拉流</button>
             </div>
         </div>
     </div>

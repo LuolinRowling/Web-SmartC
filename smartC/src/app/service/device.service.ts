@@ -230,6 +230,14 @@ export class DeviceService {
       .then(response => response.json().data)
       .catch(this.handleError)
     }
+
+    openRaspberry(id): Promise<any>{
+      return this.http
+            .put(this.assignDeviceUrl+'raspberry/'+id,this.options)
+            .toPromise()
+            .then(response=>response.json().data)
+            .catch(this.handleError);
+    }
     /**
      * [commonOperatFunc 公共方法]
      * @param {[type]} url  [访问地址]

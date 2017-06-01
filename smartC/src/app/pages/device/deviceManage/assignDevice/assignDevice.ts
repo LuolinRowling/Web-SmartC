@@ -57,6 +57,16 @@ export class assignDevicePage implements OnInit{
         location.reload();
       })
     }
+    /**
+     * [openRaspberry 强制开启树莓派]
+     * @param {[type]} id [设备ID]
+     */
+    openRaspberry(id): void{
+      this.deviceService.openRaspberry(id).then(data=>{
+        let judge = Math.abs(data.judge);
+        if(judge!=9) location.reload();
+      })
+    }
 
   	ngOnInit(): void{
   		this.getDeviceTypes();
