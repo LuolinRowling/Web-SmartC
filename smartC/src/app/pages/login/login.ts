@@ -36,7 +36,7 @@ export class LoginPage{
 			if(data.judge == "0"){
 				this.storageService.write('user',data.user);
 				//this.router.navigate(['/ParentRouter']); 
-				//location.href='';      		
+				location.href='';      		
 			}else{
 				this.judgeMessage = false;
 			}
